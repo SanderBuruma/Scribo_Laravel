@@ -87,31 +87,31 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-item nav-link active" data-window="info" href="#personal-information">Gebruikersinformatie <span class="sr-only">(current)</span></a>
-					<a class="nav-item nav-link" data-window="password" href="#password-change">Verander Paswoord</a>
+					<a class="nav-item nav-link active" data-window="info" href="#personal-information">User Information <span class="sr-only">(current)</span></a>
+					<a class="nav-item nav-link" data-window="password" href="#password-change">Change Password</a>
 				</div>
 			</div>
 		</nav>
 
 		<div class="row">
-			<div class="col-md-4" id="personal-information"><h4>Uw naam</h4></div>
+			<div class="col-md-4" id="personal-information"><h4>Name</h4></div>
 			<div class="col-md-8">
-				<label for="name">Naam:</label><br>
-				<input placeholder="John Doe" type="text" name="name" value="{{ $user->name }}" pattern="[ a-zA-Z]+" title="Naam: alleen letters en nummers">
-				<p id="input-name-feedback" hidden class="input-feedback">Naam: alleen letters en nummers</p><br>
+				<label for="name">Name:</label><br>
+				<input placeholder="John Doe" type="text" name="name" value="{{ $user->name }}" pattern="[ a-zA-Z]+" title="NAme: only letters and numbers">
+				<p id="input-name-feedback" hidden class="input-feedback">Name: only letters and numbers</p><br>
 				<label for="email">Email:</label><br>
 				<input placeholder="John Doe" type="text" name="email" value="{{ $user->email }}" disabled><br>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4"><h4>Uw Gravatar afbeelding</h4><p>deze afbeelding hoort bij uw email en kan u op de Gravatar website instellen. Per default wordt een willekeurige afbeelding geselecteerd</p></div>
+			<div class="col-md-4"><h4>Your gravatar image</h4><p>This image belongs to your email. You can configure it on Gravatar's website.</p></div>
 			<div class="col-md-8">
 				<label for="gravatar-picture"><a href="https://www.gravatar.com/">Gravatar</a> profiel afbeelding</label><br>
 				<img src="https://www.gravatar.com/avatar/{{ md5( strtolower( trim( "$user->email" ) ) ) }}?d=identicon" alt="">
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4"><h4>Uw rollen</h4><p>U hebt deze rollen gekregen van een Admin. Admins kunnen u rollen toe en ontkennen via de admin interface.</p></div>
+			<div class="col-md-4"><h4>Your roles</h4><p>You have received these roles from the Admin team. Only they can modify these.</p></div>
 			<div class="col-md-8">
 				<p>
 				@foreach($roles as $role)
@@ -121,46 +121,46 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4"><h4>Uw adres informatie</h4></div>
+			<div class="col-md-4"><h4>Your address Information</h4></div>
 			<div class="col-md-8">
-				<label for="street">Adres:</label><br>
-				<input placeholder="Hoofdstraat" type="text" name="street" value="{{ $user->street }}" pattern="[ a-zA-Z]+" title="Adres: alleen letters en spaties"> Huis Nr:<input placeholder="999" type="text" name="streetnr" class="col-sm-1" value="{{ $user->streetnr }}" pattern="[0-9]+" title="Adres Nr: alleen nummers"><br>
-				<p id="input-street-feedback" hidden class="input-feedback">Adres: alleen letters en spaties</p><p id=input-streetnr-feedback>Adres Nr: alleen nummers</p>
+				<label for="street">Address:</label><br>
+				<input placeholder="Hoofdstraat" type="text" name="street" value="{{ $user->street }}" pattern="[ a-zA-Z]+" title="Address: only letters and spaces"> Huis Nr:<input placeholder="999" type="text" name="streetnr" class="col-sm-1" value="{{ $user->streetnr }}" pattern="[0-9]+" title="Adres Nr: alleen nummers"><br>
+				<p id="input-street-feedback" hidden class="input-feedback">Address: only letters and spaces</p><p id=input-streetnr-feedback>Address Nr: only numbers</p>
 				<label for="city">Stad:</label><br>
 				<input placeholder="Amsterdam" type="text" name="city" value="{{ $user->city }}" pattern="[ a-zA-Z]+" title="Adres: alleen letters en spaties">
-				<p id="input-city-feedback" hidden class="input-feedback">Adres: alleen letters en spaties</p><br>
-				<label for="province">Provincie:</label><br>
-				<input placeholder="Noord Holland" type="text" name="province" value="{{ $user->province }}" pattern="[ a-zA-Z]+" title="Provincie: alleen letters en spaties">
-				<p id="input-province-feedback" hidden class="input-feedback">Provincie: alleen letters en spaties</p><br>
+				<p id="input-city-feedback" hidden class="input-feedback">Address: only letters and spaces</p><br>
+				<label for="province">Province:</label><br>
+				<input placeholder="Noord Holland" type="text" name="province" value="{{ $user->province }}" pattern="[ a-zA-Z]+" title="Province: only letters and spaces">
+				<p id="input-province-feedback" hidden class="input-feedback">Province: only letters and spaces</p><br>
 				<label for="country">Land:</label><br>
-				<input placeholder="Nederland" type="text" name="country" value="{{ $user->country }}" pattern="[ a-zA-Z]+" title="Land: alleen letters en spaties">
-				<p id="input-country-feedback" hidden class="input-feedback">Land: alleen letters en spaties</p><br>
+				<input placeholder="The Netherlands" type="text" name="country" value="{{ $user->country }}" pattern="[ a-zA-Z]+" title="Country: only letters and spaces">
+				<p id="input-country-feedback" hidden class="input-feedback">Country: only letters and spaces</p><br>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4"><h4>Uw telefoon nrs</h4></div>
+			<div class="col-md-4"><h4>Your telephone numbers</h4></div>
 			<div class="col-md-8">
-				<label for="country">Telefoon nr 1:</label><br>
-				<input placeholder="06-12345678" type="text" name="telephone1" value="{{ $user->telephone1 }}" pattern="[\-0-9]+" title="TelefoonNr: alleen nummers en -">
-				<p id="input-telephone1-feedback" hidden class="input-feedback">Alleen nummers en '-'</p><br>
-				<label for="country">Telefoon nr 2:</label><br>
-				<input placeholder="030-6543210" type="text" name="telephone2" value="{{ $user->telephone2 }}" pattern="[\-0-9]+" title="TelefoonNr: alleen nummers en -">
-				<p id="input-telephone2-feedback" hidden class="input-feedback">Alleen nummers en '-'</p>
+				<label for="country">Telephone nr 1:</label><br>
+				<input placeholder="06-12345678" type="text" name="telephone1" value="{{ $user->telephone1 }}" pattern="[\-0-9]+" title="TelephoneNr: Only numbers and -">
+				<p id="input-telephone1-feedback" hidden class="input-feedback">Only numbers and '-'</p><br>
+				<label for="country">Telephone nr 2:</label><br>
+				<input placeholder="030-6543210" type="text" name="telephone2" value="{{ $user->telephone2 }}" pattern="[\-0-9]+" title="TelephoneNr: Only numbers and -">
+				<p id="input-telephone2-feedback" hidden class="input-feedback">Only numbers and '-'</p>
 			</div>
 		</div>
 		<br>
-		<button id="submit-changes-nonpw" type="button" class="btn btn-dark col-md-4 offset-md-4" style="">Profiel Bijwerken</button>
-		<h5 id="submit-changes-message" hidden>Gebruiker opgeslagen</h5>
+		<button id="submit-changes-nonpw" type="button" class="btn btn-dark col-md-4 offset-md-4" style="">Save Changes</button>
+		<h5 id="submit-changes-message" hidden>User Saved</h5>
 
 		<div class="row">
-			<div class="col-md-4"><h4 id="password-change">Paswoord Veranderen</h4></div>
+			<div class="col-md-4"><h4 id="password-change">Change Password</h4></div>
 			<div class="col-md-8">
-				<input placeholder="huidig paswoord" type="password" name="password_old" value="" pattern=".{8,128}" title="Paswoord: tussen 8 en 128 karakters"><br><br>
-				<input placeholder="paswoord" type="password" name="password" value="" pattern=".{8,128}" title="Paswoord: tussen 8 en 128 karakters">
-				<input placeholder="paswoord opnieuw" type="password" name="password_confirmation" value="" pattern=".{8,128}" title="Paswoord: tussen 8 en 128 karakters">
-				<p id="input-password-feedback" hidden class="input-feedback">Paswoorden komen niet overeen</p>
+				<input placeholder="current password" type="password" name="password_old" value="" pattern=".{8,128}" title="Password: between 8 en 128 karakters"><br><br>
+				<input placeholder="new password" type="password" name="password" value="" pattern=".{8,128}" title="Password: between 8 en 128 karakters">
+				<input placeholder="new password again" type="password" name="password_confirmation" value="" pattern=".{8,128}" title="Password: tussen 8 en 128 karakters">
+				<p id="input-password-feedback" hidden class="input-feedback">Passwords don't match</p>
 			</div>
-		<button id="submit-changes-pw" type="button" class="btn btn-dark col-md-4 offset-md-4" style="">Paswoord opslaan</button>
+		<button id="submit-changes-pw" type="button" class="btn btn-dark col-md-4 offset-md-4" style="">Save Password</button>
 		</div>
 		<br>
 			
