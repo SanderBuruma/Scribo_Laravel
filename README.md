@@ -1,25 +1,18 @@
-# Basic Laravel Template
+# Scribo Cursim (laravel)
 
-#### A template by Sander "Cubit32" Buruma
+#### A typing game by Sander "Cubit32" Buruma
 
 ---
 
-A basic template which includes an authentication system.
-See https://trello.com/b/4jj2d8UO/defaultlaravel for features to come.
+A typing game by Sander Buruma, complete with Catholic texts.
 
 ## Installation
 
-- Create a Laravel 5.7 project
-- Clone this project on top of it and replace all.
-- php artisan migrate
-- php artisan db:seed
-- use the browser register form to create a new user and in your database editor give yourself all roles
+clone, run composer update and pray
 
 ## Features
 
-- Role Authentication (admin, moderator, etc)
-- Layout Partials
-- Navbar
+- Texts to type
 
 ## Plugins
 

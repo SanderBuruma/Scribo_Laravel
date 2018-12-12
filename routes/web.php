@@ -30,6 +30,7 @@ Route::group(['middleware' => ['web','auth']], function(){
 	Route::group(['middleware' => ['role:3']], function(){
 		Route::resource('/admin', 'AdminInterfaceController');
 		Route::get('/adminajax', 'AdminInterfaceController@indexAjax')->name('admin.index.ajax');
+		Route::resource('/text', 'TextController');
 	});
 	Route::resource('/user', 'UserInterfaceController');
 });
