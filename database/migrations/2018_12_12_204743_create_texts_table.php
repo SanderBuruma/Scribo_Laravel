@@ -15,9 +15,10 @@ class CreateTextsTable extends Migration
     {
         Schema::create('texts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->text('text');
-            $table->string('slug');
+            $table->integer('chapter')->nullable();
+            $table->integer('verse')->nullable();
             $table->timestamps();
         });
     }
