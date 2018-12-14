@@ -1,0 +1,20 @@
+#text-correct{
+  color: #040;
+  background-color: #bfb;
+}
+#text-next-char{
+  text-decoration: underline;
+}
+#text-to-type{
+  color: #555;
+}
+#text-wrong{
+  color: red;
+  background-color: #faa;
+}
+#text-to-type-input{
+  margin-top: 1rem;
+}
+#text-to-type-input.error{
+background-color: #faa;
+}

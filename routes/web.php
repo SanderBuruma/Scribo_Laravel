@@ -22,18 +22,27 @@
 // }
 
 
-Route::get('/', function () { return view('pages.home'); });
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/about', function(){ return view('pages.about'); })->name('about');
+Route::group(['middleware' => ['web']], function(){
 
-Route::group(['middleware' => ['web','auth']], function(){
+	Route::get('/ajax/text', "AjaxController@text");
+	
+	Route::get('/', function () { return view('pages.home'); });
+	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('/about', function(){ return view('pages.about'); })->name('about');
+});
+
+Route::group(['middleware' => ['web','auth','role:!4']], function(){
 	Route::group(['middleware' => ['role:3']], function(){
 		Route::resource('/admin', 'AdminInterfaceController');
 		Route::get('/adminajax', 'AdminInterfaceController@indexAjax')->name('admin.index.ajax');
 		Route::resource('/text', 'TextController');
 	});
+	Route::group(['middleware' => ['role:1']], function(){
+		
+	});
 	Route::resource('/user', 'UserInterfaceController');
 });
+
 
 Auth::routes(['verify' => true]);
 
