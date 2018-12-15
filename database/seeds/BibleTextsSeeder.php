@@ -7,7 +7,7 @@ class BibleTextsSeeder extends Seeder
     public function run()
     {
         $file = file(dirname(__DIR__).'/seeds/BibleDRA.txt');
-        $book = "Genesis";
+        $book = "";
         foreach ($file as $key => $line) {
             if (preg_match("/(\d\d?):(\d\d?).{2,2}(.*?)\n/",$line,$matches)) {
                 DB::table('texts')->insert([
