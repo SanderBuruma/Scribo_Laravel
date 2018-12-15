@@ -41,6 +41,7 @@ Route::group(['middleware' => ['web','auth','role:!4']], function(){
 		
 	});
 	Route::resource('/user', 'UserInterfaceController');
+	Route::resource('/race', 'RaceController');
 });
 
 

@@ -16,7 +16,11 @@ class CreateRacesTable extends Migration
         Schema::create('races', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('text_id')->unsigned();
+            $table->foreign('text_id')->references('id')->on('texts');
+            $table->float('speed',9,6)->unsigned(); //wpm
+            $table->float('accuracy',6,4)->unsigned(); //1 is max, 0 is min
             $table->timestamps();
         });
     }

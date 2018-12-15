@@ -49,8 +49,8 @@ $(document).ready(function(){
     fetchText();
 	}
   
-	$('#text-to-type-input')[0].addEventListener('keyup', txtInputChange);
 	$('#text-to-type-input')[0].addEventListener('keydown', txtInputChange);
+	$('#text-to-type-input')[0].addEventListener('keyup', txtInputChange);
   function txtInputChange(e) {
     if (e.target.value.length < 1) {
       startTime = +new Date();
@@ -76,13 +76,16 @@ function refreshText(text) {
 
   if (text.indexOf(textInput.value) === 0) { //imput congruent with text
     
+    textInput.disabled = false;
     textInput.classList.remove('error')
     textCorrect.innerHTML = textInput.value;
     textNextChar.innerHTML = text.slice(textInput.value.length,textInput.value.length+1);
     textWrong.innerHTML = '';
     textToType.innerHTML = currentText.text.slice(textInput.value.length+1);
     if (textInput.value.length===currentText.text.length-1){//input equals text (ie. race complete)
+      storeRace();
 			scriboBox.classList.add('complete');
+      textInput.disabled = true;
       if (!fetchStatus) {
         fetchStatus = true
         setTimeout(function(){
@@ -117,6 +120,27 @@ function fetchText() {
       currentText = result;
       $('#text-to-type-input')[0].value = null;
       refreshText(result.text);
+    },
+    error: function(jqxhr, status, exception) {
+      console.log(jqxhr);
+      console.log('Exception:', exception);
+      console.log(status);
+    }
+  });
+}
+
+function storeRace(){
+  let textInput     = $('#text-to-type-input')[0];
+  $.ajax({
+    url: `/race`,
+    method: 'post',
+    data: {
+      text_id: currentText.id,
+      speed: textInput.value.length * 12 / (((+new Date())-startTime)/1e3),
+      accuracy: .99,
+    },
+    success: function(result){
+      console.log(result);
     },
     error: function(jqxhr, status, exception) {
       console.log(jqxhr);
