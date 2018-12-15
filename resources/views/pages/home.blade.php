@@ -20,7 +20,7 @@
           </tr>
           <tr style="font-size: 24px;">
             <td><i class="fas fa-search" style="font-size: 24px;"></i></td>
-            <td><a href="#" id="load-text-specific" title="Fetch a specific text from the Database">> Biblical <</a></td>
+            <td><a href="#" id="load-text-specific" title="Fetch a specific text from the Bible">> Biblical <</a></td>
             <td>
               <select id="load-text-specific-book" value="2">
               @foreach($subcategories as $subcategory)
@@ -143,6 +143,7 @@ $(document).ready(function(){
     refreshText(currentText.text);
 	};
   bookChange();
+  fetchText();
 });
 
 function refreshText(text) {
