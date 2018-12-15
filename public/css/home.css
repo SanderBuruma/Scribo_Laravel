@@ -14,7 +14,11 @@
 }
 #text-to-type-input{
   margin-top: 1rem;
+  font-size: 2rem;
 }
 #text-to-type-input.error{
 background-color: #faa;
+}
+#scribo-box.complete{
+  background-color: #bfb;
 }

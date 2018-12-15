@@ -23,7 +23,7 @@
     </div>
   </div>
    
-  <div class="col-md-8 offset-md-2 card">
+  <div class="col-md-8 offset-md-2 card" id="scribo-box">
     <div class="card-body"><h2>
       <div>
         <span id="text-correct"></span><span id="text-next-char"></span><span id="text-wrong"></span><span id="text-to-type"></span>
@@ -36,7 +36,7 @@
 
 @section('footer')
 <script>
-let resultLength, inputLen = 0, startTime = +new Date(), currentText = 'test';
+let resultLength, inputLen = 0, startTime = +new Date(), currentText = 'test', fetchStatus = false;
 $(document).ready(function(){
 	$.ajaxSetup({
 		headers: {
@@ -46,28 +46,12 @@ $(document).ready(function(){
   $('#text-to-type-input')[0].value = null;
 
 	$('#load-text-rnd')[0].onclick = function(){
-    $.ajax({
-      url: `/ajax/text`,
-      method: 'get',
-      success: function(result){
-        console.log(result);
-        resultLength = result.length;
-        currentText = result;
-        $('#text-to-type-input')[0].value = null;
-        refreshText(result.text);
-      },
-      error: function(jqxhr, status, exception) {
-        console.log(jqxhr);
-        console.log('Exception:', exception);
-        console.log(status);
-      }
-    });
+    fetchText();
 	}
   
 	$('#text-to-type-input')[0].addEventListener('keyup', txtInputChange);
 	$('#text-to-type-input')[0].addEventListener('keydown', txtInputChange);
   function txtInputChange(e) {
-    console.log(e.target.value);
     if (e.target.value.length < 1) {
       startTime = +new Date();
     } else  if (e.target.value.length > inputLen+2) {
@@ -82,17 +66,32 @@ $(document).ready(function(){
 });
 
 function refreshText(text) {
+  
   let textInput     = $('#text-to-type-input')[0];
   let textCorrect   = $('#text-correct')[0];
   let textNextChar  = $('#text-next-char')[0];
   let textWrong     = $('#text-wrong')[0];
   let textToType    = $('#text-to-type')[0];
+  let scriboBox     = $('#scribo-box')[0];
+
   if (text.indexOf(textInput.value) === 0) { //imput congruent with text
+    
     textInput.classList.remove('error')
     textCorrect.innerHTML = textInput.value;
     textNextChar.innerHTML = text.slice(textInput.value.length,textInput.value.length+1);
     textWrong.innerHTML = '';
     textToType.innerHTML = currentText.text.slice(textInput.value.length+1);
+    if (textInput.value.length===currentText.text.length-1){//input equals text (ie. race complete)
+			scriboBox.classList.add('complete');
+      if (!fetchStatus) {
+        fetchStatus = true
+        setTimeout(function(){
+          fetchText();
+        },1e3)
+      }
+		} else {//input does not equal text
+			scriboBox.classList.remove('complete');
+		}
   } else { //input does not match text
 		textNextChar.innerHTML = '';
 		textInput.classList.add('error');
@@ -106,5 +105,26 @@ function refreshText(text) {
 		}
 	}
 };
+
+function fetchText() {
+  $.ajax({
+    url: `/ajax/text`,
+    method: 'get',
+    success: function(result){
+      fetchStatus = false;
+      console.log(result);
+      resultLength = result.length;
+      currentText = result;
+      $('#text-to-type-input')[0].value = null;
+      refreshText(result.text);
+    },
+    error: function(jqxhr, status, exception) {
+      console.log(jqxhr);
+      console.log('Exception:', exception);
+      console.log(status);
+    }
+  });
+}
+
 </script>
 @stop
