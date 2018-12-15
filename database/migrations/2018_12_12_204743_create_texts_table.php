@@ -19,6 +19,7 @@ class CreateTextsTable extends Migration
             $table->text('text');
             $table->integer('chapter')->nullable();
             $table->integer('verse')->nullable();
+            $table->integer('length')->unsigned();
             $table->timestamps();
         });
     }

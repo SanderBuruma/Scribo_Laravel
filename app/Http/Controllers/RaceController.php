@@ -41,9 +41,11 @@ class RaceController extends Controller
             'text_id'   => 'required|exists:texts,id',
         ]);
         $race = new Race();
-        $race->user_id = auth()->id();
-        $race->text_id = $request->text_id;
-        $race->speed = $request->speed;
+        $race->user_id  = auth()->id();
+        $race->text_id  = $request->text_id;
+        $race->speed    = $request->speed;
+        $race->accuracy = $request->accuracy;
+        $race->time_taken = $request->time_taken;
         $race->save();
     }
 

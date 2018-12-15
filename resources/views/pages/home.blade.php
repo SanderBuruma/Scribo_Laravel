@@ -36,7 +36,7 @@
 
 @section('footer')
 <script>
-let resultLength, inputLen = 0, startTime = +new Date(), currentText = 'test', fetchStatus = false;
+let resultLength, inputLen = 0, startTime = +new Date(), currentText = 'test', fetchStatus = false, typingMistakes = 0, typingCorrect = true;
 $(document).ready(function(){
 	$.ajaxSetup({
 		headers: {
@@ -53,7 +53,9 @@ $(document).ready(function(){
 	$('#text-to-type-input')[0].addEventListener('keyup', txtInputChange);
   function txtInputChange(e) {
     if (e.target.value.length < 1) {
+      //reset timer and mistake counter
       startTime = +new Date();
+      typingMistakes = 0;
     } else  if (e.target.value.length > inputLen+2) {
       alert('no copy pasting, please');
       e.target.value = '';
@@ -76,6 +78,8 @@ function refreshText(text) {
 
   if (text.indexOf(textInput.value) === 0) { //imput congruent with text
     
+    typingCorrect = true;
+    
     textInput.disabled = false;
     textInput.classList.remove('error')
     textCorrect.innerHTML = textInput.value;
@@ -96,6 +100,10 @@ function refreshText(text) {
 			scriboBox.classList.remove('complete');
 		}
   } else { //input does not match text
+    if (typingCorrect) {
+      typingMistakes++;
+      typingCorrect = false;
+    };
 		textNextChar.innerHTML = '';
 		textInput.classList.add('error');
 		for (let i = 0; i<currentText.text.length; i++){
@@ -137,7 +145,8 @@ function storeRace(){
     data: {
       text_id: currentText.id,
       speed: textInput.value.length * 12 / (((+new Date())-startTime)/1e3),
-      accuracy: .99,
+      accuracy: Math.min(1 - (0,typingMistakes / currentText.text.length)),
+      time_taken: (((+new Date())-startTime)/1e3),
     },
     success: function(result){
       console.log(result);

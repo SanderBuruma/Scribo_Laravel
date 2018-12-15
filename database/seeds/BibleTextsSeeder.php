@@ -15,13 +15,14 @@ class BibleTextsSeeder extends Seeder
                     'verse' =>  $matches[2],
                     'subcategory_id' => $subcategory->id,
                     'text' => $matches[3],
+                    'length' => strlen($matches[3]),
                 ]);
             } else if (preg_match("/(.*?) Chapter \d+/",$line,$matches)) {
                 if ($matches[1] != $book) {
                     $book = $matches[1];
 					DB::table('subcategories')->insert([
 						'name' => $matches[1],
-						'category_id' => 2,
+                        'category_id' => 2,
 					]);
                     $subcategory = Subcategory::where('name',$matches[1])->first();
                     print_r("ID:$subcategory->id/$subcategory->name\n");
