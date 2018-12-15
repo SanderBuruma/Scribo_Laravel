@@ -19,6 +19,9 @@
 #text-to-type-input.error{
 background-color: #faa;
 }
+#scribo-box{
+  padding: 0;
+}
 #scribo-box.complete{
   background-color: #bfb;
 }

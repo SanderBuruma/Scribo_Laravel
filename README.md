@@ -4,7 +4,7 @@
 
 ---
 
-A typing game by Sander Buruma, complete with Catholic texts.
+A typing game by Sander Buruma, complete with lots of Catholic texts.
 
 ## Installation
 
