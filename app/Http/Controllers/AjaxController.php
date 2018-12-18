@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Text;
+use App\Race;
 use App\Subcategory;
+use Illuminate\Support\Facades\DB;
 
 class AjaxController extends Controller
 {
@@ -32,6 +34,7 @@ class AjaxController extends Controller
 		$text = Text::where('subcategory_id','=',"$request->book")->orderByDesc('chapter')->first();
 		return $text->chapter;
 	}
+
 	public function verse(Request $request) {
 		$text = Text::
 		where('subcategory_id','=',"$request->book")
@@ -39,5 +42,10 @@ class AjaxController extends Controller
 		->orderByDesc('verse')
 		->first();
 		return $text->verse;
+	}
+
+	public function leaderboard() {
+		$races = DB::table('races')->groupBy('user_id')->avg('time_taken');
+		return $races;
 	}
 }

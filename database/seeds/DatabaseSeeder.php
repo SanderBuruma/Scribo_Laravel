@@ -78,6 +78,7 @@ class DatabaseSeeder extends Seeder {
 		
 		$this->call([
 			BibleTextsSeeder::class,
+			UserRacesSeeder::class,
 		]);
 	}
 }

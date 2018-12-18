@@ -36,7 +36,7 @@
     </div>
   </div>
    
-  <div class="col-md-8 offset-md-2 card" id="scribo-box">
+  <div class="col-md-8 offset-md-2 card card mb-sm-2" id="scribo-box">
     <div class="card-header">
       <h4 id="text-header">
         {{-- javascript inputs header info here --}}
@@ -48,6 +48,26 @@
       </div>
       <input type="text" id="text-to-type-input" class="form-control" title="Empty me to reset the timer and mistakes counter." placeholder="Type here...">
     </h2></div>
+  </div>
+  <div class="col-md-8 offset-md-2 card">
+    <div class="card-header">
+      <h4>
+        User Leaderboard
+      </h4>
+    </div>
+    <div class="card-body"><h5>
+      <div>
+        <table class="table">
+          <thead title="To be recorded, a user must have completed at least 10 races">
+            <th>Name</th>
+            <th>WPM</th>
+          </thead>
+          <tbody id="leaderboard-body">
+            {{-- Javascript interacts here --}}
+          </tbody>
+        </table>
+      </div>
+    </h5></div>
   </div>
 </div>
 @endsection
@@ -208,6 +228,21 @@ function fetchText(getVariables = '') {
       $('#text-to-type-input')[0].value = null;
       $('#text-header')[0].innerHTML = `${currentText.title} ${currentText.chapter}:${currentText.verse}`;
       refreshText(result.text);
+    },
+    error: function(jqxhr, status, exception) {
+      console.log(jqxhr);
+      console.log('Exception:', exception);
+      console.log(status);
+    }
+  });
+}
+
+function fetchLeaderboard() {
+  $.ajax({
+    url: `/ajax/leaderboard`,
+    method: 'get',
+    success: function(result){
+      console.log(result);
     },
     error: function(jqxhr, status, exception) {
       console.log(jqxhr);

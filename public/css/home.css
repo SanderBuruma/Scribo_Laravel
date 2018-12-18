@@ -19,7 +19,7 @@
 #text-to-type-input.error{
 background-color: #faa;
 }
-#scribo-box{
+.card{
   padding: 0;
 }
 #scribo-box.complete{
