@@ -78,36 +78,21 @@ class UserInterfaceController extends Controller
                 //non password changes
                 if ($request->user()->name == Auth::user()->name) {
                     $this->validate($request, [
-                        'street'        => 'nullable|string|min:2|regex:/[ a-zA-Z]+/',
-                        'streetnr'      => 'nullable|integer|regex:/[0-9]+/',
                         'city'          => 'nullable|string|min:2|regex:/[ a-zA-Z]+/',
-                        'province'      => 'nullable|string|min:2|regex:/[ a-zA-Z]+/',
                         'country'       => 'nullable|string|min:2|regex:/[ a-zA-Z]+/',
-                        'telephone1'    => 'nullable|regex:/[0-9\-]+/',
-                        'telephone2'    => 'nullable|regex:/[0-9\-]+/',
                     ]);
                 } else {
                     $this->validate($request, [
                         'name'          => 'required|string|unique:users|min:2|regex:/[ a-zA-Z0-9]+/',
-                        'street'        => 'nullable|string|min:2|regex:/[ a-zA-Z]+/',
-                        'streetnr'      => 'nullable|integer|regex:/[0-9]+/',
                         'city'          => 'nullable|string|min:2|regex:/[ a-zA-Z]+/',
-                        'province'      => 'nullable|string|min:2|regex:/[ a-zA-Z]+/',
                         'country'       => 'nullable|string|min:2|regex:/[ a-zA-Z]+/',
-                        'telephone1'    => 'nullable|regex:/[0-9\-]+/',
-                        'telephone2'    => 'nullable|regex:/[0-9\-]+/',
                     ]);
                 }
                 
                 $user = Auth::user();
                 $user->name         = $request->name;
-                $user->street       = $request->street;
-                $user->streetnr     = $request->streetnr;
                 $user->city         = $request->city;
-                $user->province     = $request->province;
                 $user->country      = $request->country;
-                $user->telephone1   = $request->telephone1;
-                $user->telephone2   = $request->telephone2;
 
                 $user->save();
                 return ["message"=>"Gebruiker opgeslagen!"];

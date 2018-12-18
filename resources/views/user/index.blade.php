@@ -100,7 +100,7 @@
 				<input placeholder="John Doe" type="text" name="name" value="{{ $user->name }}" pattern="[ a-zA-Z]+" title="NAme: only letters and numbers">
 				<p id="input-name-feedback" hidden class="input-feedback">Name: only letters and numbers</p><br>
 				<label for="email">Email:</label><br>
-				<input placeholder="John Doe" type="text" name="email" value="{{ $user->email }}" disabled><br>
+				<input placeholder="John Doe" type="text" name="email" value="{{ $user->email }}" disabled title="Your email cannot be changed"><br>
 			</div>
 		</div>
 		<div class="row">
@@ -111,7 +111,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4"><h4>Your roles</h4><p>You have received these roles from the Admin team. Only they can modify these.</p></div>
+			<div class="col-md-4"><h4>Your roles</h4><p>You have received these roles from the Admin team. Only they can change them.</p></div>
 			<div class="col-md-8">
 				<p>
 				@foreach($roles as $role)
@@ -121,31 +121,14 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4"><h4>Your address Information</h4></div>
+			<div class="col-md-4"><h4>Location Information</h4></div>
 			<div class="col-md-8">
-				<label for="street">Address:</label><br>
-				<input placeholder="Hoofdstraat" type="text" name="street" value="{{ $user->street }}" pattern="[ a-zA-Z]+" title="Address: only letters and spaces"> Huis Nr:<input placeholder="999" type="text" name="streetnr" class="col-sm-1" value="{{ $user->streetnr }}" pattern="[0-9]+" title="Adres Nr: alleen nummers"><br>
-				<p id="input-street-feedback" hidden class="input-feedback">Address: only letters and spaces</p><p id=input-streetnr-feedback>Address Nr: only numbers</p>
-				<label for="city">Stad:</label><br>
+				<label for="city">City:</label><br>
 				<input placeholder="Amsterdam" type="text" name="city" value="{{ $user->city }}" pattern="[ a-zA-Z]+" title="Adres: alleen letters en spaties">
 				<p id="input-city-feedback" hidden class="input-feedback">Address: only letters and spaces</p><br>
-				<label for="province">Province:</label><br>
-				<input placeholder="Noord Holland" type="text" name="province" value="{{ $user->province }}" pattern="[ a-zA-Z]+" title="Province: only letters and spaces">
-				<p id="input-province-feedback" hidden class="input-feedback">Province: only letters and spaces</p><br>
-				<label for="country">Land:</label><br>
+				<label for="country">Country:</label><br>
 				<input placeholder="The Netherlands" type="text" name="country" value="{{ $user->country }}" pattern="[ a-zA-Z]+" title="Country: only letters and spaces">
 				<p id="input-country-feedback" hidden class="input-feedback">Country: only letters and spaces</p><br>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4"><h4>Your telephone numbers</h4></div>
-			<div class="col-md-8">
-				<label for="country">Telephone nr 1:</label><br>
-				<input placeholder="06-12345678" type="text" name="telephone1" value="{{ $user->telephone1 }}" pattern="[\-0-9]+" title="TelephoneNr: Only numbers and -">
-				<p id="input-telephone1-feedback" hidden class="input-feedback">Only numbers and '-'</p><br>
-				<label for="country">Telephone nr 2:</label><br>
-				<input placeholder="030-6543210" type="text" name="telephone2" value="{{ $user->telephone2 }}" pattern="[\-0-9]+" title="TelephoneNr: Only numbers and -">
-				<p id="input-telephone2-feedback" hidden class="input-feedback">Only numbers and '-'</p>
 			</div>
 		</div>
 		<br>
@@ -195,13 +178,8 @@ jQuery(document).ready(function(){
 			data: {
 				req:				1,
 				name: 			$('input[name="name"]').val(),
-				street: 		$('input[name="street"]').val(),
-				streetnr: 	$('input[name="streetnr"]').val(),
 				city: 			$('input[name="city"]').val(),
-				province: 	$('input[name="province"]').val(),
 				country: 		$('input[name="country"]').val(),
-				telephone1: $('input[name="telephone1"]').val(),
-				telephone2: $('input[name="telephone2"]').val()
 			},
 			success: function(result){
 				console.log(result);

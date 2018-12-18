@@ -42,11 +42,11 @@ class RaceController extends Controller
             'time_taken'=> 'required|numeric|min:0',
         ]);
         $race = new Race();
-        $race->user_id  = auth()->id();
-        $race->text_id  = $request->text_id;
-        $race->speed    = $request->speed;
-        $race->mistakes = $request->mistakes;
-        $race->time_taken = $request->time_taken;
+        $race->user_id      = auth()->id();
+        $race->text_id      = $request->text_id;
+        $race->speed        = $request->speed;
+        $race->mistakes     = $request->mistakes;
+        $race->time_taken   = $request->time_taken;
         $race->save();
     }
 

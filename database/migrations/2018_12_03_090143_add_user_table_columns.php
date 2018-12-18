@@ -15,13 +15,7 @@ class AddUserTableColumns extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('city')->nullable()->after('remember_token');
-            $table->string('street')->nullable()->after('remember_token');
-            $table->integer('streetnr')->nullable()->after('remember_token');
-            $table->string('province')->nullable()->after('remember_token');
             $table->string('country')->nullable()->after('remember_token');
-            $table->string('telephone1')->nullable()->after('remember_token');
-            $table->string('telephone2')->nullable()->after('remember_token');
-            $table->string('profilePic')->nullable()->after('remember_token');
         });
     }
 
@@ -34,13 +28,7 @@ class AddUserTableColumns extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('city');
-            $table->dropColumn('street');
-            $table->dropColumn('streetnr');
-            $table->dropColumn('province');
             $table->dropColumn('country');
-            $table->dropColumn('telephone1');
-            $table->dropColumn('telephone2');
-            $table->dropColumn('profilePic');
         });
     }
 }
