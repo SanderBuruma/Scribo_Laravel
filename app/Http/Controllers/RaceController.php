@@ -37,14 +37,15 @@ class RaceController extends Controller
     {
         $this->validate($request, [
             'speed'	    => 'required|numeric|min:0|max:400',
-            'accuracy'	=> 'required|numeric|min:0|max:1',
+            'mistakes'	=> 'required|numeric|min:0',
             'text_id'   => 'required|exists:texts,id',
+            'time_taken'=> 'required|numeric|min:0',
         ]);
         $race = new Race();
         $race->user_id  = auth()->id();
         $race->text_id  = $request->text_id;
         $race->speed    = $request->speed;
-        $race->accuracy = $request->accuracy;
+        $race->mistakes = $request->mistakes;
         $race->time_taken = $request->time_taken;
         $race->save();
     }

@@ -225,7 +225,7 @@ function storeRace(){
     data: {
       text_id: currentText.id,
       speed: textInput.value.length * 12 / (((+new Date())-startTime)/1e3),
-      accuracy: Math.min(1 - (0,typingMistakes / currentText.text.length)),
+      mistakes: typingMistakes,
       time_taken: (((+new Date())-startTime)/1e3),
     },
     success: function(result){

@@ -28,7 +28,7 @@ Route::group(['middleware' => ['web']], function(){
 	Route::post('/ajax/chapter', "AjaxController@chapter");
 	Route::post('/ajax/verse', "AjaxController@verse");
 	
-	Route::get('/', function () { return view('pages.home'); });
+	Route::get('/', 'HomeController@index')->name('home');
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/about', function(){ return view('pages.about'); })->name('about');
 });
