@@ -52,22 +52,20 @@
   <div class="col-md-8 offset-md-2 card">
     <div class="card-header">
       <h4>
-        User Leaderboard
+        Leaderboard
       </h4>
     </div>
-    <div class="card-body"><h5>
-      <div>
-        <table class="table">
-          <thead title="To be recorded, a user must have completed at least 10 races">
-            <th>Name</th>
-            <th>WPM</th>
-          </thead>
-          <tbody id="leaderboard-body">
-            {{-- Javascript interacts here --}}
-          </tbody>
-        </table>
-      </div>
-    </h5></div>
+    <div>
+      <table class="table">
+        <thead title="To be recorded, a user must have completed at least 10 races">
+          <th>Name</th>
+          <th>WPM</th>
+        </thead>
+        <tbody id="leaderboard-body">
+          {{-- Javascript interacts here --}}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 @endsection
@@ -80,8 +78,9 @@ $(document).ready(function(){
 	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-		}
+    }
   });
+  fetchLeaderboard();
   $('#text-to-type-input')[0].value = null;
 
   $('#load-text-rnd')[0].onclick = function(){
@@ -95,6 +94,7 @@ $(document).ready(function(){
   $('#load-text-specific-book')[0].onchange = function(){
     bookChange()
   }	
+
   function bookChange() {
     $.ajax({
       url: `/ajax/chapter`,
@@ -222,7 +222,6 @@ function fetchText(getVariables = '') {
     method: 'get',
     success: function(result){
       fetchStatus = false;
-      console.log(result);
       resultLength = result.length;
       currentText = result;
       $('#text-to-type-input')[0].value = null;
@@ -242,7 +241,17 @@ function fetchLeaderboard() {
     url: `/ajax/leaderboard`,
     method: 'get',
     success: function(result){
-      console.log(result);
+      let insideStr = ``;
+      for (let i of result) {
+        let WPM = Math.round(i.WPM*1e2)/1e2;
+        console.log(WPM);
+        insideStr += `
+        <tr>
+          <td>${i.name}</td>
+          <td>${WPM}</td>
+        </tr>`;
+      }
+      $('#leaderboard-body').html(insideStr);
     },
     error: function(jqxhr, status, exception) {
       console.log(jqxhr);
@@ -253,7 +262,7 @@ function fetchLeaderboard() {
 }
 
 function storeRace(){
-  let textInput     = $('#text-to-type-input')[0];
+  let textInput = $('#text-to-type-input')[0];
   $.ajax({
     url: `/race`,
     method: 'post',

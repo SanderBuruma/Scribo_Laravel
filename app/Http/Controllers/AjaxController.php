@@ -45,7 +45,14 @@ class AjaxController extends Controller
 	}
 
 	public function leaderboard() {
-		$races = DB::table('races')->groupBy('user_id')->avg('time_taken');
-		return $races;
+		$leaderboard = DB::select('SELECT user_id,name,(sum(texts.length)/sum(time_taken))*12 as WPM
+		FROM races
+		INNER JOIN texts ON races.text_id=texts.id
+		INNER JOIN users ON races.user_id=users.id
+		GROUP BY user_id
+		ORDER BY WPM DESC
+		LIMIT 10'
+		);
+		return $leaderboard;
 	}
 }

@@ -37,7 +37,7 @@ class UserRacesSeeder extends Seeder
         while ($count++ < 1e4) {
             $rndTextId = random_int(1,2739);
             $text = Text::where('id',$rndTextId)->first();
-            $speed = random_int(70e3,130e3)/1e3;
+            $speed = random_int(40e3,70e3)/1e3;
             $timeTaken = $text->length / $speed * 12;
             $mistakes = ($text->length/20)-floor(random_int(0,random_int(0,$text->length/20)));
             DB::table('races')->insert([
