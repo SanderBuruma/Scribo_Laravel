@@ -9,7 +9,7 @@ class BibleTextsSeeder extends Seeder
         $file = file(dirname(__DIR__).'/seeds/BibleDRA.txt');
         $book = "";
         foreach ($file as $key => $line) {
-            if (preg_match("/(\d\d?):(\d\d?).{2,2}(.*?)\n/",$line,$matches)) {
+            if (preg_match('/(\d\d?):(\d\d?).{2,2}(.*)/',$line,$matches)) {
                 DB::table('texts')->insert([
                     'chapter' => $matches[1],
                     'verse' =>  $matches[2],
@@ -17,7 +17,7 @@ class BibleTextsSeeder extends Seeder
                     'text' => $matches[3],
                     'length' => strlen($matches[3]),
                 ]);
-            } else if (preg_match("/(.*?) Chapter \d+/",$line,$matches)) {
+            } else if (preg_match('/(.*?) Chapter \d+/',$line,$matches)) {
                 if ($matches[1] != $book) {
                     $book = $matches[1];
 					DB::table('subcategories')->insert([
