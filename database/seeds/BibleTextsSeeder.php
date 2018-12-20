@@ -6,7 +6,7 @@ class BibleTextsSeeder extends Seeder
 {
     public function run()
     {
-        $file = file(dirname(__DIR__).'/seeds/BibleDRAgen.txt');
+        $file = file(dirname(__DIR__).'/seeds/BibleDRA.txt');
         $book = "";
         foreach ($file as $key => $line) {
             if (preg_match('/(\d\d?):(\d\d?).{2,2}(.*)/',$line,$matches)) {
