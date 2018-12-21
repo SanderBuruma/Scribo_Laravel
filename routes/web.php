@@ -49,5 +49,5 @@ Route::group(['middleware' => ['web','auth','role:!4']], function(){
 });
 
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
