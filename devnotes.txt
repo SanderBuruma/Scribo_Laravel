@@ -1,0 +1,3 @@
+replace regex statement to separate lines which are too long.
+^(.{80,}[.,;]) ?(.{80,})$
+$1\n$2
