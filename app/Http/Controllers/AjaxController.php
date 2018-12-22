@@ -14,18 +14,20 @@ class AjaxController extends Controller
 		# grab fully random text.
 		$textIds = text::select('texts.id')->get();
 		$textIdsCount = count($textIds);
-		if (isset($request->textId)) {
+		/*   */ if (isset($request->textId)) {
 			$text = Text::find((++$request->textId)%($textIdsCount));
-		} else if (isset($request->bible)) {
+		} else 	if (isset($request->bible)) {
 			$expl = explode(" ",$request->bible);
 			$text = Text::
 			where('subcategory_id',	'=',	$expl[0])
 			->where('chapter',			'=',	$expl[1])
 			->where('verse',				'=',	$expl[2])
 			->first();
+		} else 	if (isset($request->saint)) {
+			
 		} else {
 			$text = Text::find(random_int(1,$textIdsCount));
-		}
+		} 
 		$text->title = Subcategory::find($text->subcategory_id)->name;
 		return $text;
 	}
@@ -42,6 +44,17 @@ class AjaxController extends Controller
 		->orderByDesc('verse')
 		->first();
 		return $text->verse;
+	}
+
+	public function returnSaints() {
+		$saints = DB::select('SELECT subcategories.name,subcategories.id,count(texts.length) as text_count
+		FROM subcategories
+		INNER JOIN texts ON subcategories.id=texts.subcategory_id
+		WHERE subcategories.category_id = 4
+		GROUP BY subcategories.name
+		ORDER BY id ASC'
+		);
+		return $saints;
 	}
 
 	public function leaderboard() {

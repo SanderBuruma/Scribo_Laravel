@@ -27,6 +27,7 @@ Route::group(['middleware' => ['web']], function(){
 	Route::get('/ajax/text', "AjaxController@text");
 	Route::post('/ajax/chapter', "AjaxController@chapter");
 	Route::post('/ajax/verse', "AjaxController@verse");
+	Route::post('/ajax/saints', "AjaxController@returnSaints");
 	
 	Route::get('/ajax/leaderboard', "AjaxController@leaderboard");
 	

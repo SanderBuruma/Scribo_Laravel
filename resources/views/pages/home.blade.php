@@ -14,23 +14,37 @@
     <div class="card-body">
       <table>
         <tbody>
+
           <tr style="font-size: 24px;">
             <td><i class="fas fa-keyboard"></i></td>
             <td><a href="#" id="load-text-rnd" title="fetch ANY random text from the database">> Random <</a></td>
           </tr>
+
           <tr style="font-size: 24px;">
             <td><i class="fas fa-search" style="font-size: 24px;"></i></td>
-            <td><a href="#" id="load-text-specific" title="Fetch a specific text from the Bible">> Biblical <</a></td>
+            <td><a href="#" id="load-text-bible" title="Fetch a specific text from the Bible">> Biblical <</a></td>
             <td>
-              <select id="load-text-specific-book" value="2">
+              <select id="load-text-bible-book" value="2">
               @foreach($subcategories as $subcategory)
                 <option value="{{$subcategory->id}}">{{$subcategory->name}}</option>
               @endforeach
               </select>
-              <select id="load-text-specific-chapter"><option value="1"></option>1</select>
-              <select id="load-text-specific-verse"><option value="1"></option>1</select>
+              <select id="load-text-bible-chapter"><option value="1"></option>1</select>
+              <select id="load-text-bible-verse"><option value="1"></option>1</select>
             </td>
           </tr>
+
+          <tr style="font-size: 24px;">
+            <td><i class="fas fa-search" style="font-size: 24px;"></i></td>
+            <td><a href="#" id="load-text-saint" title="Fetch a specific text from the Bible">> Saint <</a></td>
+            <td>
+              <select id="load-text-saint-book" value="1">
+              </select>
+              <select id="load-text-saint-chapter"><option value="1"></option>1</select>
+              <select id="load-text-saint-verse"><option value="1"></option>1</select>
+            </td>
+          </tr>
+
         </tbody>
       </table>
     </div>
@@ -72,7 +86,13 @@
 
 @section('footer')
 <script>
-let resultLength, inputLen = 0, startTime = +new Date(), currentText = 'test', fetchStatus = false, typingMistakes = 0, typingCorrect = true;
+let resultLength, inputLen = 0, startTime = +new Date(), currentText = 'test', fetchStatus = false, typingMistakes = 0, typingCorrect = true, allSaints = [];
+let textInput     = $('#text-to-type-input')[0];
+  let textCorrect   = $('#text-correct')[0];
+  let textNextChar  = $('#text-next-char')[0];
+  let textWrong     = $('#text-wrong')[0];
+  let textToType    = $('#text-to-type')[0];
+  let scriboBox     = $('#scribo-box')[0];
 
 $(document).ready(function(){
 	$.ajaxSetup({
@@ -81,68 +101,65 @@ $(document).ready(function(){
     }
   });
   fetchLeaderboard();
+  populateSaints();
   $('#text-to-type-input')[0].value = null;
 
   $('#load-text-rnd')[0].onclick = function(){
     fetchText();
   }	
-  $('#load-text-specific')[0].onclick = function(){
-    let query = $('#load-text-specific-book')[0].value + " " + $('#load-text-specific-chapter')[0].value + " " + $('#load-text-specific-verse')[0].value;
+  $('#load-text-bible')[0].onclick = function(){
+    let query = $('#load-text-bible-book')[0].value + " " + $('#load-text-bible-chapter')[0].value + " " + $('#load-text-bible-verse')[0].value;
     fetchText("?bible="+query);
   }	
 
-  $('#load-text-specific-book')[0].onchange = function(){
-    bookChange()
+  $('#load-text-bible-book')[0].onchange = function(){
+    bibleBookChange()
+  }	
+  $('#load-text-saint-book')[0].onchange = function(){
+    refreshSaintsChapters()
+  }	
+  $('#load-text-saint-chapter')[0].onchange = function(){
+    refreshSaintsVerses()
   }	
 
-  function bookChange() {
+  function bibleBookChange() {
     $.ajax({
       url: `/ajax/chapter`,
       method: 'post',
       data: {
-        book: $('#load-text-specific-book')[0].value,
+        book: $('#load-text-bible-book')[0].value,
       },
       success: function(result){
         innerString = '';
         for (let i = 1; i-1<result ; i++) {
           innerString += `<option value="${i}">${i}</option>`
         }
-        $('#load-text-specific-chapter')[0].innerHTML = innerString;
-        $('#load-text-specific-chapter')[0].value = 1;
-        chapterChange();
-      },
-      error: function(jqxhr, status, exception) {
-        console.log(jqxhr);
-        console.log('Exception:', exception);
-        console.log(status);
+        $('#load-text-bible-chapter')[0].innerHTML = innerString;
+        $('#load-text-bible-chapter')[0].value = 1;
+        bibleChapterChange();
       }
     });
   }
 
-  $('#load-text-specific-chapter')[0].onchange = function(){
-    chapterChange();
+  $('#load-text-bible-chapter')[0].onchange = function(){
+    bibleChapterChange();
   }	
 
-  function chapterChange () {
+  function bibleChapterChange () {
     $.ajax({
       url: `/ajax/verse`,
       method: 'post',
       data: {
-        book: $('#load-text-specific-book')[0].value,
-        chapter: $('#load-text-specific-chapter')[0].value,
+        book: $('#load-text-bible-book')[0].value,
+        chapter: $('#load-text-bible-chapter')[0].value,
       },
       success: function(result){
         innerString = '';
         for (let i = 1; i-1<result ; i++) {
           innerString += `<option value="${i}">${i}</option>`
         }
-        $('#load-text-specific-verse')[0].innerHTML = innerString;
-        $('#load-text-specific-verse')[0].value = 1;
-      },
-      error: function(jqxhr, status, exception) {
-        console.log(jqxhr);
-        console.log('Exception:', exception);
-        console.log(status);
+        $('#load-text-bible-verse')[0].innerHTML = innerString;
+        $('#load-text-bible-verse')[0].value = 1;
       }
     });
   }
@@ -162,18 +179,12 @@ $(document).ready(function(){
 
     refreshText(currentText.text);
 	};
-  bookChange();
+  bibleBookChange();
   fetchText();
 });
 
 function refreshText(text) {
   
-  let textInput     = $('#text-to-type-input')[0];
-  let textCorrect   = $('#text-correct')[0];
-  let textNextChar  = $('#text-next-char')[0];
-  let textWrong     = $('#text-wrong')[0];
-  let textToType    = $('#text-to-type')[0];
-  let scriboBox     = $('#scribo-box')[0];
 
   if (text.indexOf(textInput.value) === 0) { //imput congruent with text
     
@@ -216,6 +227,58 @@ function refreshText(text) {
 	}
 };
 
+
+function populateSaints () {
+  $.ajax({
+    url: `/ajax/saints`,
+    method: 'post',
+    success: function(result){
+      for (let i of result) {
+        allSaints[i.id] = {id: i.id, name: i.name, text_count: i.text_count,};
+      }
+      let firstSaint, insideStr = ``;
+      for (let i of result) {
+        insideStr += `<option value="${i.id}">${i.name}</option>`;
+        if (!firstSaint) {
+          firstSaint = i;
+        }
+      };
+      $('#load-text-saint-book').html(insideStr);
+      $('#load-text-saint-book').val(firstSaint.id);
+      refreshSaintsChapters();
+    }
+  });
+}
+
+function refreshSaintsChapters() {
+  let saint = allSaints[$('#load-text-saint-book').val()];
+  let chapterCount = Math.ceil(saint.text_count/50);
+  let insideStr = ``;
+  for (let i = 1; i<=chapterCount; i++) {
+    insideStr += `<option value="${i}">${i}</option>`;
+  }
+  $('#load-text-saint-chapter').html(insideStr);
+  $('#load-text-saint-chapter').val(1);
+  refreshSaintsVerses();
+}
+
+function refreshSaintsVerses() {
+  let saintId = $('#load-text-saint-book').val();
+  let saintChapter = $('#load-text-saint-chapter').val();
+  let insideStr = ``;
+  if (Math.ceil(allSaints[saintId].text_count/50) != saintChapter) {
+    for (let i = 1; i<=50 ; i++) {
+      insideStr += `<option value="${i}">${i}</option>`;
+    }
+  } else {
+    for (let i = 1; i<=allSaints[saintId].text_count%50 ; i++) {
+      insideStr += `<option value="${i}">${i}</option>`;
+    }
+  }
+  $('#load-text-saint-verse').html(insideStr);
+  $('#load-text-saint-verse').val(1);
+}
+
 function fetchText(getVariables = '') {
   $.ajax({
     url: `/ajax/text${getVariables}`,
@@ -227,11 +290,6 @@ function fetchText(getVariables = '') {
       $('#text-to-type-input')[0].value = null;
       $('#text-header')[0].innerHTML = `${currentText.title} ${currentText.chapter}:${currentText.verse}`;
       refreshText(result.text);
-    },
-    error: function(jqxhr, status, exception) {
-      console.log(jqxhr);
-      console.log('Exception:', exception);
-      console.log(status);
     }
   });
 }
@@ -244,7 +302,6 @@ function fetchLeaderboard() {
       let insideStr = ``;
       for (let i of result) {
         let WPM = Math.round(i.WPM*1e2)/1e2;
-        console.log(WPM);
         insideStr += `
         <tr>
           <td>${i.name}</td>
@@ -252,11 +309,6 @@ function fetchLeaderboard() {
         </tr>`;
       }
       $('#leaderboard-body').html(insideStr);
-    },
-    error: function(jqxhr, status, exception) {
-      console.log(jqxhr);
-      console.log('Exception:', exception);
-      console.log(status);
     }
   });
 }
@@ -271,14 +323,6 @@ function storeRace(){
       speed: textInput.value.length * 12 / (((+new Date())-startTime)/1e3),
       mistakes: typingMistakes,
       time_taken: (((+new Date())-startTime)/1e3),
-    },
-    success: function(result){
-      console.log(result);
-    },
-    error: function(jqxhr, status, exception) {
-      console.log(jqxhr);
-      console.log('Exception:', exception);
-      console.log(status);
     }
   });
 }
