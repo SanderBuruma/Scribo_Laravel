@@ -34,6 +34,8 @@ Route::group(['middleware' => ['web']], function(){
 	Route::get('/', 'HomeController@index')->name('home');
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/about', function(){ return view('pages.about'); })->name('about');
+
+	Route::get('user/{slug}', 'UserController@show')->name('user.show');
 });
 
 Route::group(['middleware' => ['web','auth','role:!4']], function(){
@@ -45,7 +47,7 @@ Route::group(['middleware' => ['web','auth','role:!4']], function(){
 	Route::group(['middleware' => ['role:1']], function(){
 		
 	});
-	Route::resource('/user', 'UserInterfaceController');
+	Route::resource('/user', 'UserController')->except('show');
 	Route::resource('/race', 'RaceController');
 });
 

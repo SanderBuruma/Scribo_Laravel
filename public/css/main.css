@@ -34,3 +34,7 @@ a:hover {
 	border-radius: 8px;
 	font-weight: bold;
 }
+.navbar-nav.mr-auto{
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}

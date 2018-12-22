@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
-class UserInterfaceController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -48,9 +48,10 @@ class UserInterfaceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $user = User::where('name','=',$slug)->first();
+        return view('user.show')->withUser($user);
     }
 
     /**
