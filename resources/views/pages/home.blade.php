@@ -88,11 +88,11 @@
 <script>
 let resultLength, inputLen = 0, startTime = +new Date(), currentText = 'test', fetchStatus = false, typingMistakes = 0, typingCorrect = true, allSaints = [];
 let textInput     = $('#text-to-type-input')[0];
-  let textCorrect   = $('#text-correct')[0];
-  let textNextChar  = $('#text-next-char')[0];
-  let textWrong     = $('#text-wrong')[0];
-  let textToType    = $('#text-to-type')[0];
-  let scriboBox     = $('#scribo-box')[0];
+let textCorrect   = $('#text-correct')[0];
+let textNextChar  = $('#text-next-char')[0];
+let textWrong     = $('#text-wrong')[0];
+let textToType    = $('#text-to-type')[0];
+let scriboBox     = $('#scribo-box')[0];
 
 $(document).ready(function(){
 	$.ajaxSetup({
@@ -109,7 +109,11 @@ $(document).ready(function(){
   }	
   $('#load-text-bible')[0].onclick = function(){
     let query = $('#load-text-bible-book')[0].value + " " + $('#load-text-bible-chapter')[0].value + " " + $('#load-text-bible-verse')[0].value;
-    fetchText("?bible="+query);
+    fetchText("?specific="+query);
+  }	
+  $('#load-text-saint')[0].onclick = function(){
+    let query = $('#load-text-saint-book')[0].value + " " + $('#load-text-saint-chapter')[0].value + " " + $('#load-text-saint-verse')[0].value;
+    fetchText("?specific="+query);
   }	
 
   $('#load-text-bible-book')[0].onchange = function(){

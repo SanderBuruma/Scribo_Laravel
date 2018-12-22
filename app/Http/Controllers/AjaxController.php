@@ -12,20 +12,20 @@ class AjaxController extends Controller
 {
 	public function text(Request $request) {
 		# grab fully random text.
-		$textIds = text::select('texts.id')->get();
-		$textIdsCount = count($textIds);
-		/*   */ if (isset($request->textId)) {
+		if 				 (isset($request->textId)) {
+			$textIds = text::select('texts.id')->get();
+			$textIdsCount = count($textIds);
 			$text = Text::find((++$request->textId)%($textIdsCount));
-		} else 	if (isset($request->bible)) {
-			$expl = explode(" ",$request->bible);
+		} else 	if (isset($request->specific)) {
+			$expl = explode(" ",$request->specific);
 			$text = Text::
 			where('subcategory_id',	'=',	$expl[0])
 			->where('chapter',			'=',	$expl[1])
 			->where('verse',				'=',	$expl[2])
 			->first();
-		} else 	if (isset($request->saint)) {
-			
 		} else {
+			$textIds = text::select('texts.id')->get();
+			$textIdsCount = count($textIds);
 			$text = Text::find(random_int(1,$textIdsCount));
 		} 
 		$text->title = Subcategory::find($text->subcategory_id)->name;
