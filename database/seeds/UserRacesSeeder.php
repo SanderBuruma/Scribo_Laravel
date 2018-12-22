@@ -41,13 +41,13 @@ class UserRacesSeeder extends Seeder
             $timeTaken = $text->length / $speed * 12;
             $mistakes = ($text->length/20)-floor(random_int(0,random_int(0,$text->length/20)));
             DB::table('races')->insert([
-                'user_id' => random_int(1,177),
+                'user_id' => random_int(2,177),
                 'time_taken' => $timeTaken,
                 'text_id' => $rndTextId,
                 'speed' => $speed,
                 'mistakes' => $mistakes,
             ]);
-            !$count%1e2?print_r($count):null;
+            !($count%1e2)?print_r($count*1e2):null;
         }
     }
 }
