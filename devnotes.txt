@@ -6,6 +6,6 @@ find capital letters out of place and separate them
 ([a-z])([A-Z])
 $1 $2
 
-find separaters without spacing and spacing space them
+find separaters without spacing and space them
 ([\w\d][.,;!@#$%^&*\)])([\w\d])
 $1 $2
