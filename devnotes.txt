@@ -1,3 +1,11 @@
 replace regex statement to separate lines which are too long.
 ^(.{80,}[.,;]) ?(.{80,})$
 $1\n$2
+
+find capital letters out of place and separate them
+([a-z])([A-Z])
+$1 $2
+
+find separaters with improper spacing letters out of place and separate them
+([\w\d][.,;!@#$%^&*\(\)])([\w\d])
+$1 $2
