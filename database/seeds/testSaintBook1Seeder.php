@@ -11,7 +11,7 @@ class SaintBook1Seeder extends Seeder
         $verseCount = 1;
         $chapterCount = 1;
         foreach ($file as $key => $line) {
-            if (preg_match('/.{80,}/',$line,$matches)) {
+            if (preg_match('/.{75,}/',$line,$matches)) {
                 DB::table('texts')->insert([
                     'chapter' => $chapterCount,
                     'verse' =>  $verseCount,
