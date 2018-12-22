@@ -58,6 +58,7 @@ class AjaxController extends Controller
 	}
 
 	public function leaderboard() {
+		# this should only be run for example at maximum once per minute after 10 or more races have been completed since this last query.
 		$leaderboard = DB::select('SELECT user_id,name,(sum(texts.length)/sum(time_taken))*12 as WPM
 		FROM races
 		INNER JOIN texts ON races.text_id=texts.id
