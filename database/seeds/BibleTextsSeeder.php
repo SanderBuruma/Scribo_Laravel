@@ -8,15 +8,23 @@ class BibleTextsSeeder extends Seeder
     {
         $file = file(dirname(__DIR__).'/seeds/BibleDRA.txt');
         $book = "";
+        $blocks = [];
+        $verseCount = 0;
+        $verses = [];
         foreach ($file as $key => $line) {
             if (preg_match('/(\d\d?):(\d\d?).{2,2}(.*)/',$line,$matches)) {
-                DB::table('texts')->insert([
+                $verses[] = [
                     'chapter' => $matches[1],
                     'verse' =>  $matches[2],
                     'subcategory_id' => $subcategory->id,
                     'text' => $matches[3],
                     'length' => strlen($matches[3]),
-                ]);
+                ];
+                $verseCount++; 
+                if ($verseCount%1e3==0) {
+                    $blocks[] = $verses;
+                    $verses = [];
+                }
             } else if (preg_match('/(.*?) Chapter \d+/',$line,$matches)) {
                 if ($matches[1] != $book) {
                     $book = $matches[1];
@@ -29,5 +37,12 @@ class BibleTextsSeeder extends Seeder
                 }
             }
         }
+        $count = 0;
+        // dd($blocks[0]);
+        foreach ($blocks as $block) {
+            print_r("Block: ".$count++ ."\n");
+            DB::table('texts')->insert($block);
+        }
+        // DB::table('texts')->insert($verses);
     }
 }
