@@ -1,5 +1,5 @@
 replace regex statement to separate lines which are too long.
-^(.{80,}[.,;]) ?(.{80,})$
+^(.{80,}[.,;]) ?(.{80,})
 $1\n$2
 
 find capital letters out of place and separate them
@@ -9,3 +9,8 @@ $1 $2
 find separaters without spacing and space them
 ([\w\d][.,;!@#$%^&*\)])([\w\d])
 $1 $2
+
+find trailing spaces and remove
+ +$
+
+

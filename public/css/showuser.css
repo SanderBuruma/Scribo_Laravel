@@ -1,0 +1,12 @@
+.card-header tbody>td:nth-child(2){
+  color: red;
+}
+.card-header table{
+  width: 100%;
+}
+.card-header table tbody td{
+  width: 50%;
+}
+.card-header table tbody td:nth-child(2){
+  text-align: right;
+}

@@ -4,7 +4,7 @@
 
 
 @section('header')
-<link rel="stylesheet" href="{{ asset('css/home.css') }}">
+<link rel="stylesheet" href="{{ asset('/css/home.css') }}">
 @stop
 
 
@@ -308,7 +308,7 @@ function fetchLeaderboard() {
         let WPM = Math.round(i.WPM*1e2)/1e2;
         insideStr += `
         <tr>
-          <td>${i.name}</td>
+          <td><a href="/user/${i.name}" target="_blank" rel="noopener noreferrer">${i.name}</a></td>
           <td>${WPM}</td>
         </tr>`;
       }

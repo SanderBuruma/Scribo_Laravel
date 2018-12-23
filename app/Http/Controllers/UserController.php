@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Race;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -50,8 +52,20 @@ class UserController extends Controller
      */
     public function show($slug)
     {
+        $stats = [];
         $user = User::where('name','=',$slug)->first();
-        return view('user.show')->withUser($user);
+
+        $stats = Race::
+        where('user_id','=',$user->id)
+        ->select(DB::raw('count(*) as count_races, sum(mistakes) as mistakes, 1-sum(mistakes)/sum(texts.length) as accuracy, sum(texts.length)/sum(time_taken)*12 as WPM'))
+        ->join('texts', 'races.text_id', '=', 'texts.id')
+        ->first();
+
+        $stats->totalUsers = DB::table('users')
+            ->select(DB::raw('count(*) as user_count'))
+            ->first();
+
+        return view('user.show')->withUser($user)->withStats($stats);
     }
 
     /**
