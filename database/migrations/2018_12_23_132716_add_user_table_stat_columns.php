@@ -15,7 +15,7 @@ class AddUserTableStatColumns extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('rank')->nullable()->after('city');
-            $table->float  ('time_taken',11,6)->nullable()->after('city');
+            $table->float  ('time_taken',11,3)->nullable()->after('city');
             $table->integer('races')->nullable()->after('city');
             $table->integer('races_len')->nullable()->after('city'); //total races length
             $table->integer('mistakes')->nullable()->after('city');

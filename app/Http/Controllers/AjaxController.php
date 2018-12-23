@@ -57,9 +57,9 @@ class AjaxController extends Controller
 		return $saints;
 	}
 
-	public function leaderboard() {
+	public function leaderboardZZZ() {
 		# this should only be run for example at maximum once per minute after 10 or more races have been completed since this last query.
-		$leaderboard = DB::select('SELECT user_id, name, (sum(texts.length)/sum(time_taken))*12 as WPM
+		$leaderboard = DB::select('SELECT user_id, name, (sum(texts.length)/sum(races.time_taken))*12 as WPM
 		FROM races
 		INNER JOIN texts ON races.text_id=texts.id
 		INNER JOIN users ON races.user_id=users.id
@@ -68,5 +68,16 @@ class AjaxController extends Controller
 		LIMIT 10'
 		);
 		return $leaderboard;
+	}
+	public function leaderboard() {
+		
+		$stats = DB::select('SELECT user_id, name, (sum(texts.length)/sum(races.time_taken))*12 as WPM, count(*) as races_count
+		FROM races
+		INNER JOIN texts ON races.text_id=texts.id
+		INNER JOIN users ON races.user_id=users.id
+		GROUP BY user_id
+		ORDER BY WPM DESC'
+		);
+		return $stats;
 	}
 }
