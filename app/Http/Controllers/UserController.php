@@ -53,14 +53,19 @@ class UserController extends Controller
      */
     public function show($slug)
     {
-        StatsController::updateLeaderboard();
+        StatsController::updateUserStats();
 
         $stats = [];
         $user = User::where('name','=',$slug)->first();
 
         $stats = Race::
         where('user_id','=',$user->id)
-        ->select(DB::raw('count(*) as count_races, sum(mistakes) as mistakes, 1-sum(mistakes)/sum(texts.length) as accuracy, sum(texts.length)/sum(time_taken)*12 as WPM'))
+        ->select(DB::raw('
+            count(*)                                as count_races, 
+            sum(mistakes)                           as mistakes, 
+            1-sum(mistakes)/sum(texts.length)       as accuracy, 
+            sum(texts.length)/sum(time_taken)*12    as WPM'
+        ))
         ->join('texts', 'races.text_id', '=', 'texts.id')
         ->first();
 
