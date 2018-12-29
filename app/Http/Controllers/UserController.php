@@ -53,8 +53,7 @@ class UserController extends Controller
      */
     public function show($slug)
     {
-        $return = StatsController::updateLeaderboard();
-        dd ($return);
+        StatsController::updateLeaderboard();
 
         $stats = [];
         $user = User::where('name','=',$slug)->first();

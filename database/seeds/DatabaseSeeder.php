@@ -103,8 +103,8 @@ class DatabaseSeeder extends Seeder {
 		$this->call([
 			BibleTextsSeeder::class,
 			SaintBook1Seeder::class,
-			UserRacesSeeder::class,
 			ServerStatusSeeder::class,
+			UserRacesSeeder::class,
 		]);
 	}
 }
