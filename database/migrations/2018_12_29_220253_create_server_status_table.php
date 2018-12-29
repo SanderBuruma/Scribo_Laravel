@@ -14,7 +14,7 @@ class CreateServerStatusTable extends Migration
     public function up()
     {
         //this table is suppose to contain information like when the races leaderboard was last updated.
-        Schema::create('server_status', function (Blueprint $table) {
+        Schema::create('server_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -28,6 +28,6 @@ class CreateServerStatusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('server_status');
+        Schema::dropIfExists('server_statuses');
     }
 }
