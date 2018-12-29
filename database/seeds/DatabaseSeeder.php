@@ -104,6 +104,7 @@ class DatabaseSeeder extends Seeder {
 			BibleTextsSeeder::class,
 			SaintBook1Seeder::class,
 			UserRacesSeeder::class,
+			ServerStatusSeeder::class,
 		]);
 	}
 }

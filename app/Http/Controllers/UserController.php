@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Race;
+use App\Http\Controllers\StatsController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
