@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\User;
-use App\Race;
-use App\Http\Controllers\StatsController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\StatsController;
+use App\User;
+use App\Race;
+use App\ServerStatus;
 
 class UserController extends Controller
 {
@@ -56,8 +57,8 @@ class UserController extends Controller
         StatsController::updateUserStats();
 
         $user = User::where('name','=',$slug)->first();
-
-        return view('user.show')->withUser($user);
+        $users_with_25_races = ServerStatus::where('name', '=', 'users_with_25_races')->first();
+        return view('user.show')->withUser($user)->withUserscount($users_with_25_races->val_int);
     }
 
     /**

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\StatsController;
 use App\Text;
 use App\Race;
 use App\Subcategory;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\StatsController;
 
 class AjaxController extends Controller
 {

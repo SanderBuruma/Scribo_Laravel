@@ -12,10 +12,14 @@ class ServerStatusSeeder extends Seeder
     public function run()
     {
         $date = date('Y-m-d G:i:s', time());
-        DB::table('server_statuses')->insert([
+        DB::table('server_statuses')->insert([[
             'name' => 'leaderboard_updated',
             'created_at' => $date,
             'updated_at' => $date,
-        ]);
+        ],[
+            'name' => 'users_with_25_races',
+            'created_at' => $date,
+            'updated_at' => $date,
+        ]]);
     }
 }

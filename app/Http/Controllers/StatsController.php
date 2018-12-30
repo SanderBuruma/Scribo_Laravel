@@ -20,7 +20,7 @@ class StatsController extends Controller
         $created_at = strtotime($server_info->updated_at);
         $difference = time() - $created_at;
 
-        //don't update more than once per ten minutes because I think this is an expensive operation
+        //don't update more than once per ten minutes because I think that this is an expensive operation
         if ($difference > 600) {
             self::calculateAndSaveStats();
         }
@@ -37,12 +37,14 @@ class StatsController extends Controller
         );
         $rank = 1;
         $texts = Text::all();
+        $user25RacesCount = 0;
         foreach ($userStats as $stat) {
             $date1 = date('Y-m-d G:i:s', time());
             $user = User::find($stat->user_id);
             $user->mistakes         = $stat->mistakes;
             if ($stat->races > 25) {
 
+                $user25RacesCount++;
                 $user->rank         = $rank++;
 
                 //calculate the longest marathon run and the longest perfect streak by characters typed
@@ -127,6 +129,11 @@ class StatsController extends Controller
         $leaderboard_updated = ServerStatus::where('name','=','leaderboard_updated')->first();
         $leaderboard_updated->updated_at = date('Y-m-d G:i:s', time());
         $leaderboard_updated->save();
+
+        $users_with_25_races = ServerStatus::where('name', '=', 'users_with_25_races')->first();
+        $users_with_25_races->val_int = $user25RacesCount;
+        $users_with_25_races->updated_at = date('Y-m-d G:i:s', time());
+        $users_with_25_races->save();
 
     }
 }

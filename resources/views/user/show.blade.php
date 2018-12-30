@@ -17,34 +17,32 @@
 				</tbody></table>
 			</div>
 			<div class="card-body">
-				<table class="table">
-					<tbody>
-						<tr>
-							<td>Member Since: </td>
-							<td>{{date("F jS, Y",strtotime($user->created_at))}}</td>
-						</tr>
-						<tr title="The average WPM over the last 25 races">
-							<td>Last 25 WPM: </td>
-							<td>{{$user->last25_wpm}}</td>
-						</tr>
-						<tr title="The total average of characters typed per second multiplied by twelve">
-							<td>Average WPM: </td>
-							<td>{{round($user->races_len/$user->time_taken*12,2)}}</td>
-						</tr>
-						<tr title="The total mistakes divided by the total length of all correctly typed races.">
-							<td>Accuracy: </td>
-							<td>{{round((1-$user->mistakes/$user->races_len)*100,2)}}%</td>
-						</tr>
-						<tr title="The total number of characters of your longest running marathon. Increase this by typing many races within a short time of each other.">
-							<td>Longest Marathon: </td>
-							<td>{{$user->longest_marathon}}</td>
-						</tr>
-						<tr title="The longest streak of perfectly typed texts counted. Counted as the total length of the consecutive perfect races">
-							<td>Longest Perfect Streak: </td>
-							<td>{{$user->longest_perfect_streak}}</td>
-						</tr>
-					</tbody>
-				</table>
+				<table class="table" id="stats"><tbody>
+					<tr>
+						<td>Member Since: </td>
+						<td>{{date("F jS, Y",strtotime($user->created_at))}}</td>
+					</tr>
+					<tr title="The average WPM over the last 25 races">
+						<td>Last 25 WPM: </td>
+						<td>{{$user->last25_wpm}} - <span title="The users' percentile ranking among the servers' users. Higher is better.">{{round((1-$user->rank / $userscount)*100,1)}}%</td>
+					</tr>
+					<tr>
+						<td title="The total average of characters typed per second multiplied by twelve">Average WPM: </td>
+						<td>{{round($user->races_len/$user->time_taken*12,2)}}</span></td>
+					</tr>
+					<tr title="Total mistakes divided by the total length of all correctly typed races.">
+						<td>Accuracy: </td>
+						<td>{{round((1-$user->mistakes/$user->races_len)*100,2)}}%</td>
+					</tr>
+					<tr title="The total number of characters of your longest running marathon. Increase this by typing many races within a short time of each other.">
+						<td>Longest Marathon: </td>
+						<td>{{$user->longest_marathon}}</td>
+					</tr>
+					<tr title="The longest streak of perfectly typed texts counted. Counted as the total length of the consecutive perfect races">
+						<td>Longest Perfect Streak: </td>
+						<td>{{$user->longest_perfect_streak}}</td>
+					</tr>
+				</tbody></table>
 			</div>
 		</div>
 	</div>

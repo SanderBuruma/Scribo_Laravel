@@ -10,3 +10,9 @@
 .card-header table tbody td:nth-child(2){
   text-align: right;
 }
+td:nth-child(2):hover {
+  text-decoration: underline;
+}
+table#stats td:nth-child(1) {
+  font-weight: 600;
+}
