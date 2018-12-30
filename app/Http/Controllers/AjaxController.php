@@ -7,6 +7,7 @@ use App\Text;
 use App\Race;
 use App\Subcategory;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\StatsController;
 
 class AjaxController extends Controller
 {
@@ -59,11 +60,11 @@ class AjaxController extends Controller
 
 	public function leaderboard() {
 
-		$stats = DB::select('SELECT user_id, name, (sum(texts.length)/sum(races.time_taken))*12 as WPM, count(*) as races_count
-		FROM races
-		INNER JOIN texts ON races.text_id=texts.id
-		INNER JOIN users ON races.user_id=users.id
-		GROUP BY user_id
+		StatsController::updateUserStats();
+
+		$stats = DB::select('SELECT name, (races_len/time_taken*12) as WPM, races as races_count, mistakes, races_len
+		FROM users
+		WHERE races > 25
 		ORDER BY WPM DESC
 		LIMIT 10'
 		);

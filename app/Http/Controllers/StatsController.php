@@ -38,7 +38,11 @@ class StatsController extends Controller
             $date1 = date('Y-m-d G:i:s', time());
             $user = User::find($stat->user_id);
             $user->mistakes         = $stat->mistakes;
-            $user->rank             = $rank++;
+            if ($stat->races > 25) {
+                $user->rank         = $rank++;
+            } else {
+                $user->rank         = 1e9-1;
+            }
             $user->races            = $stat->races;
             $user->time_taken       = $stat->time_taken;
             $user->races_len        = $stat->races_len;
@@ -47,8 +51,11 @@ class StatsController extends Controller
             $user->save();
         }
 
+        //insert here the code to calculate the longest marathon run and the longest perfect streak by characters typed
+
         $leaderboard_updated = ServerStatus::where('name','=','leaderboard_updated')->first();
         $leaderboard_updated->updated_at = date('Y-m-d G:i:s', time());
         $leaderboard_updated->save();
+
     }
 }

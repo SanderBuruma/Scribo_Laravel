@@ -71,9 +71,10 @@
     </div>
     <div>
       <table class="table">
-        <thead title="To be recorded, a user must have completed at least 10 races">
+        <thead title="To be recorded in the leaderboard, the user must have completed at least 25 races">
           <th>Name</th>
-          <th>WPM</th>
+          <th title="Words per minute - characters typed per minute times twelve">WPM</th>
+          <th title="1 minus number of mistakess divided by total characters correctly typed">Accuracy</th>
         </thead>
         <tbody id="leaderboard-body">
           {{-- Javascript interacts here --}}
@@ -306,10 +307,13 @@ function fetchLeaderboard() {
       let insideStr = ``;
       for (let i of result) {
         let WPM = Math.round(i.WPM*1e2)/1e2;
+        let accuracy = `${((1-i.mistakes/i.races_len)*100)}`.substr(0,5);
+        accuracy += `%`;
         insideStr += `
         <tr>
           <td><a href="/user/${i.name}" target="_blank" rel="noopener noreferrer">${i.name}</a></td>
           <td>${WPM}</td>
+          <td>${accuracy}</td>
         </tr>`;
       }
       $('#leaderboard-body').html(insideStr);
