@@ -52,6 +52,8 @@ class StatsController extends Controller
                 $currentRace = null;
                 $currentMarathonLen = 0; 
                 $maxMarathonLen = 0;
+                $currentPerfectStreak = 0;
+                $maxPerfectStreak = 0;
                 while ($currentRace = $userRaces->shift()) {
                     
                     if ($lastRace) {
@@ -70,8 +72,24 @@ class StatsController extends Controller
                             $currentMarathonLen = 0;
 
                         }
+
+                        //longest perfect streak
+                        if ( $currentRace->mistakes == 0 && $lastRace->mistakes == 0) {
+                            if ($currentPerfectStreak == 0) {
+                                $currentPerfectStreak =  $texts[$currentRace->text_id-1]->length;
+                                $currentPerfectStreak += $texts[$lastRace->text_id-1]->length;
+                            } else {
+                                $currentPerfectStreak += $texts[$currentRace->text_id-1]->length;
+                            }
+                        } else {
+                            $currentPerfectStreak = 0;
+                        }
+                        
                         if ($currentMarathonLen > $maxMarathonLen) {
                             $maxMarathonLen = $currentMarathonLen;
+                        }
+                        if ($currentPerfectStreak > $maxPerfectStreak) {
+                            $maxPerfectStreak = $currentPerfectStreak;
                         }
 
                         $lastRace = $currentRace;
@@ -88,12 +106,13 @@ class StatsController extends Controller
                 $user->rank         = 1e9-1;
 
             }
-            $user->longest_marathon = $maxMarathonLen;
-            $user->races            = $stat->races;
-            $user->time_taken       = $stat->time_taken;
-            $user->races_len        = $stat->races_len;
-            $user->stats_updated    = time();
-            $user->updated_at       = $date1;
+            $user->longest_perfect_streak   = $maxPerfectStreak;
+            $user->longest_marathon         = $maxMarathonLen;
+            $user->races                    = $stat->races;
+            $user->time_taken               = $stat->time_taken;
+            $user->races_len                = $stat->races_len;
+            $user->stats_updated            = time();
+            $user->updated_at               = $date1;
             $user->save();
         }
 
