@@ -24,7 +24,7 @@
 					</tr>
 					<tr title="The average WPM over the last 25 races">
 						<td>Last 25 WPM: </td>
-						<td>{{$user->last25_wpm}} - <span title="The users' percentile ranking among the servers' users. Higher is better.">{{round((1-$user->rank / $userscount)*100,1)}}%</td>
+						<td>{{$user->last25_wpm}} - <span title="The users' percentile ranking among the servers' users.">{{round((1-($user->rank-1) / $userscount)*100,1)}}%</td>
 					</tr>
 					<tr>
 						<td title="The total average of characters typed per second multiplied by twelve">Average WPM: </td>
@@ -34,7 +34,7 @@
 						<td>Accuracy: </td>
 						<td>{{round((1-$user->mistakes/$user->races_len)*100,2)}}%</td>
 					</tr>
-					<tr title="The total number of characters of your longest running marathon. Increase this by typing many races within a short time of each other.">
+					<tr title="The total number of characters of their longest running marathon. Increase this by typing many races within a short time of each other.">
 						<td>Longest Marathon: </td>
 						<td>{{$user->longest_marathon}}</td>
 					</tr>
