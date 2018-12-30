@@ -58,6 +58,7 @@ class UserController extends Controller
         $stats = [];
         $user = User::where('name','=',$slug)->first();
 
+        # FIXME reminder to use the stats stored in the database by the StatsController functions
         $stats = Race::
         where('user_id','=',$user->id)
         ->select(DB::raw('

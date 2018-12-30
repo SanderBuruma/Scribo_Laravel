@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\ServerStatus;
 use App\User;
+use App\Race;
+use App\Text;
 
 class StatsController extends Controller
 {
@@ -18,7 +20,7 @@ class StatsController extends Controller
         $created_at = strtotime($server_info->updated_at);
         $difference = time() - $created_at;
 
-        //don't update more than once per ten minutes
+        //don't update more than once per ten minutes because I think this is an expensive operation
         if ($difference > 600) {
             self::calculateAndSaveStats();
         }
@@ -34,15 +36,59 @@ class StatsController extends Controller
         ORDER BY WPM DESC'
         );
         $rank = 1;
+        $texts = Text::all();
         foreach ($userStats as $stat) {
             $date1 = date('Y-m-d G:i:s', time());
             $user = User::find($stat->user_id);
             $user->mistakes         = $stat->mistakes;
             if ($stat->races > 25) {
+
                 $user->rank         = $rank++;
+
+                //calculate the longest marathon run and the longest perfect streak by characters typed
+                $userRaces = Race::where('user_id', '=', $stat->user_id)
+                ->get()->sortBy('created_at');
+                $lastRace = null;
+                $currentRace = null;
+                $currentMarathonLen = 0; 
+                $maxMarathonLen = 0;
+                while ($currentRace = $userRaces->shift()) {
+                    
+                    if ($lastRace) {
+                        //longest marathon run
+                        if ( strtotime($currentRace->created_at)-120 < strtotime($lastRace->created_at) ) {
+                            //currentRace and lastRace were completed shortly after each other.
+                            if ($currentMarathonLen == 0) {
+                                $currentMarathonLen =  $texts[$currentRace->text_id-1]->length;
+                                $currentMarathonLen += $texts[$lastRace->text_id-1]->length;
+                            } else {
+                                $currentMarathonLen += $texts[$currentRace->text_id-1]->length;
+                            }
+
+                        } else {
+                            //currentRace and lastRace were NOT completed shortly after each other
+                            $currentMarathonLen = 0;
+
+                        }
+                        if ($currentMarathonLen > $maxMarathonLen) {
+                            $maxMarathonLen = $currentMarathonLen;
+                        }
+
+                        $lastRace = $currentRace;
+
+                    } else {
+
+                        $lastRace = $currentRace;
+
+                    }
+                }
+
             } else {
+
                 $user->rank         = 1e9-1;
+
             }
+            $user->longest_marathon = $maxMarathonLen;
             $user->races            = $stat->races;
             $user->time_taken       = $stat->time_taken;
             $user->races_len        = $stat->races_len;
@@ -50,8 +96,6 @@ class StatsController extends Controller
             $user->updated_at       = $date1;
             $user->save();
         }
-
-        //insert here the code to calculate the longest marathon run and the longest perfect streak by characters typed
 
         $leaderboard_updated = ServerStatus::where('name','=','leaderboard_updated')->first();
         $leaderboard_updated->updated_at = date('Y-m-d G:i:s', time());

@@ -20,7 +20,7 @@ class UserRacesSeeder extends Seeder
         while ($count++ < 1e4) {
             $rndTextId = random_int(1,2739);
             $text = Text::where('id',$rndTextId)->first();
-            $speed = random_int(40e3,70e3)/1e3;
+            $speed = random_int(10e3,20e3)/1e3;
             $timeTaken = $text->length / $speed * 12;
             $mistakes = ($text->length/40)-floor(random_int(0,random_int(0,$text->length/40)));
             $date1 = date('Y-m-d G:i:s', time()-random_int(0,1e7));
