@@ -19,6 +19,7 @@ class AddUserTableStatColumns extends Migration
             $table->integer('races')->nullable()->after('city');
             $table->integer('races_len')->nullable()->after('city'); //total races length
             $table->integer('mistakes')->nullable()->after('city');
+            $table->float  ('last25_wpm',8,1)->nullable()->after('city');
             $table->integer('longest_perfect_streak')->nullable()->after('city');
             $table->integer('longest_marathon')->nullable()->after('city');
             $table->integer('stats_updated')->nullable()->after('city'); //raw time value not converted to be human readable
@@ -38,6 +39,7 @@ class AddUserTableStatColumns extends Migration
             $table->dropColumn('races');
             $table->dropColumn('races_len');
             $table->dropColumn('mistakes');
+            $table->dropColumn('last25_wpm');
             $table->dropColumn('longest_perfect_streak');
             $table->dropColumn('longest_marathon');
             $table->dropColumn('stats_updated');

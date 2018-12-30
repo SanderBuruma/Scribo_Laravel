@@ -13,10 +13,13 @@ class CreateServerStatusTable extends Migration
      */
     public function up()
     {
-        //this table is suppose to contain information like when the races leaderboard was last updated.
+        //this table is supposed to contain information like when the races leaderboard was last updated and other precious information for which I couldn't find a place in the tavern.
         Schema::create('server_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('val_int')->nullable(); # generic integer value 
+            $table->float ('val_float',11,9)->nullable(); # generic float value 
+            $table->string('val_string',11,9)->nullable(); # generic string value 
             $table->timestamps();
         });
     }
