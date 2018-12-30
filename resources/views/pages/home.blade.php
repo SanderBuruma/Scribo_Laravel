@@ -73,7 +73,7 @@
       <table class="table">
         <thead title="To be recorded in the leaderboard, the user must have completed at least 25 races">
           <th>Name</th>
-          <th title="Words per minute - characters typed per minute times twelve">WPM</th>
+          <th title="Words per minute - characters typed per second times twelve">WPM</th>
           <th title="1 minus number of mistakess divided by total characters correctly typed">Accuracy</th>
         </thead>
         <tbody id="leaderboard-body">
