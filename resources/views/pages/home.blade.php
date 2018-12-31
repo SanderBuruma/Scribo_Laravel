@@ -63,7 +63,28 @@
       <input type="text" id="text-to-type-input" class="form-control" title="Empty me to reset the timer and mistakes counter." placeholder="Type here...">
     </h2></div>
   </div>
-  <div class="col-md-8 offset-md-2 card">
+
+  <div class="col-md-8 offset-md-2 card mb-sm-2" id="completed-races-card">
+    <div class="card-header">
+      <h4>
+        Completed Races:
+      </h4>
+    </div>
+    <div>
+      <table class="table">
+        <thead title="">
+          <th title="Length of the typed text">Length</th>
+          <th title="WPM, characters per minute divided by five">WPM</th>
+          <th title="Mistakes divided by Length of text ">Accuracy</th>
+        </thead>
+        <tbody id="completed-races-body">
+          {{-- Javascript interacts here --}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-8 offset-md-2 card leaderboard">
     <div class="card-header">
       <h4>
         Leaderboard
@@ -82,12 +103,13 @@
       </table>
     </div>
   </div>
+
 </div>
 @endsection
 
 @section('footer')
 <script>
-let inputLen = 0, startTime = +new Date(), raceStarted = false, currentText = '', nextText = '', fetchStatus = false, typingMistakes = 0, typingCorrect = true, allSaints = [];
+let inputLen = 0, startTime = +new Date(), raceStarted = false, currentText = '', nextText = '', fetchStatus = false, typingMistakes = 0, typingCorrect = true, allSaints = [], completedRaces = [];
 let textInput = $('#text-to-type-input')[0],
 textCorrect   = $('#text-correct')[0],
 textNextChar  = $('#text-next-char')[0],
@@ -172,7 +194,7 @@ $(document).ready(function(){
 	$('#text-to-type-input')[0].addEventListener('keydown', txtInputChange);
 	$('#text-to-type-input')[0].addEventListener('keyup', txtInputChange);
   function txtInputChange(e) {
-    if (e.target.value.length < 1 && !raceStarted) {
+    if (e.target.value.length > 0 && !raceStarted) {
       //reset timer and mistake counter
       raceStarted = true;
       $('#text-to-type-display')[0].classList.remove('inactive');
@@ -180,7 +202,7 @@ $(document).ready(function(){
       typingMistakes = 0;
     } 
     if (e.target.value.length > inputLen+2) {
-      alert('no copy pasting, please');
+      alert('no copy pasting, please...');
       e.target.value = '';
     }
     inputLen = e.target.value.length;
@@ -364,6 +386,25 @@ function storeRace(){
       time_taken: (((+new Date())-startTime)/1e3),
     }
   });
+  updateCompletedRaces()
+}
+
+function updateCompletedRaces () {
+
+  let textInput = $('#text-to-type-input')[0];
+
+  if (completedRaces.unshift(`
+  <tr>
+    <td>${currentText.length}</td>
+    <td>${Math.round(textInput.value.length * 120 / (((+new Date())-startTime)/1e3))/10}</td>
+    <td>${Math.round(1e3-typingMistakes/currentText.length*1e3)/10}%</td>
+  </tr>
+  `) > 5) {
+    completedRaces.pop();
+  }
+
+  $('#completed-races-body').html(completedRaces.join(''))
+
 }
 
 </script>

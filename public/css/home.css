@@ -40,3 +40,17 @@ background-color: #faa;
 #text-to-type-display.inactive span{
   color: #bbb;
 }
+
+.card-header {
+  padding: 6px 1rem;
+}
+h4{
+  font-size: 1.4rem;
+}
+th,
+td{
+  padding: 2px 1rem !important;;
+}
+.leaderboard tr:nth-child(2n) {
+  background-color: #eee;
+}
