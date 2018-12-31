@@ -37,7 +37,7 @@ class RaceController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'speed'	    => 'required|numeric|min:0|max:400',
+            'speed'	    => 'required|numeric|min:10|max:400',
             'mistakes'	=> 'required|numeric|min:0',
             'text_id'   => 'required|exists:texts,id',
             'time_taken'=> 'required|numeric|min:0',

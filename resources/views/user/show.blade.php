@@ -26,15 +26,15 @@
 						<td>Races Completed: </td>
 						<td>{{number_format($user->races)}}</td>
 					</tr>
-					<tr title="The average WPM over the last 25 races and the user's percentile ranking. 50% means the user's score is average.">
+					<tr title="The average WPM over the last 25 races and the user's percentile ranking. 75% means the user's score is better than 75% of the other users.">
 						<td>Last 25 WPM: </td>
-						<td>{{$user->last25_wpm}} - {{round((1-($user->rank-1) / $userscount)*100,1)}}%</td>
+						<td>{{$user->last25_wpm}} WPM - {{round((1-($user->rank-1) / $userscount)*100,1)}}%</td>
 					</tr>
 					<tr>
-						<td title="The total average of characters typed per second multiplied by twelve">Average WPM: </td>
+						<td title="The total average of characters typed per second multiplied by twelve">Total Average WPM: </td>
 						<td>{{round($user->races_len/$user->time_taken*12,2)}}</span></td>
 					</tr>
-					<tr title="Total mistakes divided by the total length of all correctly typed races.">
+					<tr title="Sum of all mistakes divided by the sum length of all correctly typed races by this user.">
 						<td>Accuracy: </td>
 						<td>{{round((1-$user->mistakes/$user->races_len)*100,2)}}%</td>
 					</tr>

@@ -57,7 +57,7 @@
       </h4>
     </div>
     <div class="card-body"><h2>
-      <div>
+      <div id="text-to-type-display" class="inactive">
         <span id="text-correct"></span><span id="text-next-char"></span><span id="text-wrong"></span><span id="text-to-type"></span>
       </div>
       <input type="text" id="text-to-type-input" class="form-control" title="Empty me to reset the timer and mistakes counter." placeholder="Type here...">
@@ -87,13 +87,13 @@
 
 @section('footer')
 <script>
-let resultLength, inputLen = 0, startTime = +new Date(), currentText = 'test', fetchStatus = false, typingMistakes = 0, typingCorrect = true, allSaints = [];
-let textInput     = $('#text-to-type-input')[0];
-let textCorrect   = $('#text-correct')[0];
-let textNextChar  = $('#text-next-char')[0];
-let textWrong     = $('#text-wrong')[0];
-let textToType    = $('#text-to-type')[0];
-let scriboBox     = $('#scribo-box')[0];
+let inputLen = 0, startTime = +new Date(), raceStarted = false, currentText = '', nextText = '', fetchStatus = false, typingMistakes = 0, typingCorrect = true, allSaints = [];
+let textInput = $('#text-to-type-input')[0],
+textCorrect   = $('#text-correct')[0],
+textNextChar  = $('#text-next-char')[0],
+textWrong     = $('#text-wrong')[0],
+textToType    = $('#text-to-type')[0],
+scriboBox     = $('#scribo-box')[0];
 
 $(document).ready(function(){
 	$.ajaxSetup({
@@ -172,11 +172,14 @@ $(document).ready(function(){
 	$('#text-to-type-input')[0].addEventListener('keydown', txtInputChange);
 	$('#text-to-type-input')[0].addEventListener('keyup', txtInputChange);
   function txtInputChange(e) {
-    if (e.target.value.length < 1) {
+    if (e.target.value.length < 1 && !raceStarted) {
       //reset timer and mistake counter
+      raceStarted = true;
+      $('#text-to-type-display')[0].classList.remove('inactive');
       startTime = +new Date();
       typingMistakes = 0;
-    } else  if (e.target.value.length > inputLen+2) {
+    } 
+    if (e.target.value.length > inputLen+2) {
       alert('no copy pasting, please');
       e.target.value = '';
     }
@@ -191,7 +194,7 @@ $(document).ready(function(){
 function refreshText(text) {
   
 
-  if (text.indexOf(textInput.value) === 0) { //imput congruent with text
+  if (text.indexOf(textInput.value) === 0) { //input congruent with text
     
     typingCorrect = true;
     
@@ -209,7 +212,7 @@ function refreshText(text) {
         fetchStatus = true
         setTimeout(function(){
           fetchText(`?textId=${currentText.id}`);
-        },1e3)
+        },0)
       }
 		} else {//input does not equal text
 			scriboBox.classList.remove('complete');
@@ -284,17 +287,29 @@ function refreshSaintsVerses() {
   $('#load-text-saint-verse').val(1);
 }
 
-function fetchText(getVariables = '') {
+function fetchText(getVariables = '', finishRace = false) {
   $.ajax({
     url: `/ajax/text${getVariables}`,
     method: 'get',
     success: function(result){
-      fetchStatus = false;
-      resultLength = result.length;
-      currentText = result;
-      $('#text-to-type-input')[0].value = null;
-      $('#text-header')[0].innerHTML = `${currentText.title} ${currentText.chapter}:${currentText.verse}`;
-      refreshText(result.text);
+
+      if (!nextText) {
+        //happens onload of the page
+        nextText = result;
+        fetchText(`?textId=${nextText.id-2}`);
+
+      } else {
+
+        fetchStatus = false;
+        currentText = result;
+        $('#text-to-type-input')[0].value = null;
+        $('#text-header')[0].innerHTML = `${currentText.title} ${currentText.chapter}:${currentText.verse}`;
+        refreshText(result.text);
+        raceStarted = false;
+        $('#text-to-type-display')[0].classList.add('inactive');
+
+      }
+      
     }
   });
 }

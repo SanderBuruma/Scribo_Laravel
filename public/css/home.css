@@ -34,3 +34,9 @@ background-color: #faa;
 #scribo-box.complete{
   background-color: #bfb;
 }
+#text-to-type-display{
+  transition: color 0.2s ease-in-out;
+}
+#text-to-type-display.inactive span{
+  color: #bbb;
+}
