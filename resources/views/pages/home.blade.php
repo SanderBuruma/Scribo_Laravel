@@ -74,7 +74,7 @@
         <thead title="To be recorded in the leaderboard, the user must have completed at least 25 races">
           <th>Name</th>
           <th title="Words per minute - characters typed per second times twelve">WPM</th>
-          <th title="1 minus number of mistakess divided by total characters correctly typed">Accuracy</th>
+          <th title="1 minus number of mistakes divided by total characters correctly typed">Accuracy</th>
         </thead>
         <tbody id="leaderboard-body">
           {{-- Javascript interacts here --}}
@@ -192,7 +192,6 @@ $(document).ready(function(){
 });
 
 function refreshText(text) {
-  
 
   if (text.indexOf(textInput.value) === 0) { //input congruent with text
     
@@ -210,9 +209,7 @@ function refreshText(text) {
       textInput.disabled = true;
       if (!fetchStatus) {
         fetchStatus = true
-        setTimeout(function(){
-          fetchText(`?textId=${currentText.id}`);
-        },0)
+        rollNextText();
       }
 		} else {//input does not equal text
 			scriboBox.classList.remove('complete');
@@ -287,31 +284,50 @@ function refreshSaintsVerses() {
   $('#load-text-saint-verse').val(1);
 }
 
-function fetchText(getVariables = '', finishRace = false) {
+function fetchText(getVariables = '') {
+  //should be run only if a race has NOT been finished
   $.ajax({
     url: `/ajax/text${getVariables}`,
     method: 'get',
     success: function(result){
 
+      nextText = result;
       if (!nextText) {
         //happens onload of the page
-        nextText = result;
         fetchText(`?textId=${nextText.id-2}`);
 
       } else {
 
-        fetchStatus = false;
-        currentText = result;
-        $('#text-to-type-input')[0].value = null;
-        $('#text-header')[0].innerHTML = `${currentText.title} ${currentText.chapter}:${currentText.verse}`;
-        refreshText(result.text);
-        raceStarted = false;
-        $('#text-to-type-display')[0].classList.add('inactive');
+        rollNextText();
 
       }
-      
     }
   });
+
+}
+
+function fetchNextText () {
+  $.ajax({
+    url: `/ajax/text?textId=${currentText.id}`,
+    method: 'get',
+    success: function(result){
+      nextText = result;
+    }
+  });
+}
+
+function rollNextText () {
+  //nextText becomes currentText and is loaded
+  currentText = nextText;
+  fetchStatus = false;
+  $('#text-to-type-input')[0].value = null;
+  $('#text-header')[0].innerHTML = `${currentText.title} ${currentText.chapter}:${currentText.verse}`;
+  refreshText(currentText.text);
+  raceStarted = false;
+  $('#text-to-type-display')[0].classList.add('inactive');
+  //nextText is updated
+  fetchNextText();
+
 }
 
 function fetchLeaderboard() {
