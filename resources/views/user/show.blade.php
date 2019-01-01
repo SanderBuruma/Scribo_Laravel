@@ -13,7 +13,7 @@
 			<div class="card-header">
 				<table><tbody>
 					<td>{{$user->name}}</td>
-					<td title="words per minute / characters per second * 12">{{round($user->races_len/$user->time_taken*12,2)}} WPM</td>
+					<td title=""></td>
 				</tbody></table>
 			</div>
 			<div class="card-body">
@@ -30,8 +30,8 @@
 						<td>Last 25 WPM: </td>
 						<td>{{$user->last25_wpm}} WPM - {{round((1-($user->rank-1) / $userscount)*100,1)}}%</td>
 					</tr>
-					<tr>
-						<td title="The total average of characters typed per second multiplied by twelve">Total Average WPM: </td>
+					<tr title="The total average of characters typed per second multiplied by twelve">
+						<td>Total Average WPM: </td>
 						<td>{{round($user->races_len/$user->time_taken*12,2)}}</span></td>
 					</tr>
 					<tr title="Sum of all mistakes divided by the sum length of all correctly typed races by this user.">

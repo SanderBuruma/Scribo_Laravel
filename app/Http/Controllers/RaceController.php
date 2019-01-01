@@ -49,6 +49,27 @@ class RaceController extends Controller
         $race->mistakes     = $request->mistakes;
         $race->time_taken   = $request->time_taken;
         $race->save();
+
+        $sumLen = 0; $sumTime = 0;
+        $races = Race::where('races.user_id', '=', auth()->id())
+            ->limit(25)
+            ->join('texts', 'races.text_id', '=', 'texts.id')
+            ->select('races.time_taken', 'races.mistakes', 'texts.length')
+            ->orderByDesc('races.created_at')
+            ->get();
+            
+        foreach ($races as $race) {
+            $sumTime += $race->time_taken;
+            $sumLen  += $race->length;
+        }
+        $last25_wpm = $sumLen / $sumTime * 12;
+        $user = User::find(auth()->id());
+        $user->last25_wpm = $last25_wpm;
+        $user->races_len += $races[0]->length;
+        $user->mistakes += $races[0]->mistakes;
+        $user->save();
+        return $last25_wpm;
+        
     }
 
     /**

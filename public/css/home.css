@@ -54,3 +54,6 @@ td{
 .leaderboard tr:nth-child(2n) {
   background-color: #eee;
 }
+.modal a{
+  color: white !important;
+}

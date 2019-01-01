@@ -51,7 +51,5 @@ Route::group(['middleware' => ['web','auth','role:!4']], function(){
 	Route::resource('/race', 'RaceController');
 });
 
-Route::get('/temproute/01', "StatsController@calculateAndSaveStats");
-
 Auth::routes();
 
