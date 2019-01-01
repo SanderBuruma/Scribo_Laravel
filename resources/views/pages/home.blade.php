@@ -106,6 +106,7 @@
 
 </div>
 
+@guest
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -116,7 +117,8 @@
         </button>
       </div>
       <div class="modal-body">
-        Your scores and progress will not be saved.
+        <img src="/img/nunteacher.png"><br>
+        Your scores and progress will not be saved. This makes sister Gaudea very unhappy...
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">I don't want to be logged in!</button>
@@ -126,6 +128,7 @@
     </div>
   </div>
 </div>
+@endguest
 @endsection
 
 @section('footer')

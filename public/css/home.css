@@ -54,6 +54,14 @@ td{
 .leaderboard tr:nth-child(2n) {
   background-color: #eee;
 }
+.modal-dialog {
+  width: 500px;
+}
+.modal img {
+  max-width: 100%;
+  height: 300px;
+  margin-left: 105px;
+}
 .modal a{
   color: white !important;
 }
