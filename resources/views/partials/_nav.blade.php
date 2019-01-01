@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<img src="{{ asset("svg/cubit32.svg") }}" height="32" alt="blue cube svg icon" /><a class="navbar-brand" href="{{ route('home') }}">Scribo Cursim</a>
+	<img src="{{ asset("img/quill2.png") }}" height="32" alt="blue cube svg icon" /><a class="navbar-brand" href="{{ route('home') }}">Scribo Cursim</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>

@@ -1,7 +1,7 @@
 :root {
-	--main-color-light: #ddf;
-	--main-color-dark: #226;
-	--main-color-text: #003;
+	--main-color-light: #ffd;
+	--main-color-dark: #662;
+	--main-color-text: #330;
 }
 
 *:focus {

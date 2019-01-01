@@ -53,10 +53,10 @@ class DatabaseSeeder extends Seeder {
 				$createdAt = '2018-12-0'.random_int(1,9).' '.random_int(10,23).':'.random_int(10,59).':'.random_int(10,59);
 				DB::table('users')->insert([
 					'name' => "$v $vv",
-                    'email' => "$v$vv@gmail.com",
+					'email' => "$v$vv@gmail.com",
 					'password' => '$2y$10$0LXS7kFPXV3lqzxeONNNiuWPBGBynLvDgPqXOO4ftOtzWJMX4QI82', //aaaaaaaa
-                    'city' => 'Groningen',
-                    'country' => 'the Netherlands',
+					'city' => 'Groningen',
+					'country' => 'the Netherlands',
 					'created_at' => $createdAt,
 					'updated_at' => $createdAt,
 					'email_verified_at' => $createdAt,
@@ -67,6 +67,17 @@ class DatabaseSeeder extends Seeder {
 				]);
 			}
 		}
+		$createdAt = '2018-12-0'.random_int(1,9).' '.random_int(10,23).':'.random_int(10,59).':'.random_int(10,59);
+		DB::table('users')->insert([
+			'name' => "dummy account",
+			'email' => "dummy@gmail.com",
+			'password' => '$2y$10$0LXS7kFPXV3lqzxeONNNiuWPBGBynLvDgPqXOO4ftOtzWJMX4QI82', //aaaaaaaa
+			'city' => 'Binary',
+			'country' => 'Matrix 01',
+			'created_at' => $createdAt,
+			'updated_at' => $createdAt,
+			'email_verified_at' => $createdAt,
+		]);
 
 		foreach(explode(',',"All,Bible,Pope,Saint,Missal,Prayer") as $v) {
 			DB::table('categories')->insert([

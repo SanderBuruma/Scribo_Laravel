@@ -117,8 +117,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <img src="/img/nunteacher.png"><br>
-        Your scores and progress will not be saved. This makes sister Gaudea very unhappy...
+        <img src="/img/happynun.png"><br>
+        Your scores and progress will not be saved. Register or log in so sister Gaudea can record your scores and calculate your statistics! When she isn't praying the rosary she's recording your scores and your WPM but she can't do that if you won't give her your name and email!
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">I don't want to be logged in!</button>
