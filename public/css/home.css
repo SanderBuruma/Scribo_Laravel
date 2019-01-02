@@ -54,6 +54,13 @@ td{
 .leaderboard tr:nth-child(2n) {
   background-color: #eee;
 }
+
+.form-control:focus{
+  border-color: var(--main-color-med);
+  outline: 0;
+  box-shadow: 0 0 0 .2rem var(--main-color-med);
+}
+
 .modal-dialog {
   width: 500px;
 }

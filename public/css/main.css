@@ -1,5 +1,6 @@
 :root {
 	--main-color-light: #ffd;
+	--main-color-med: #dd8;
 	--main-color-dark: #662;
 	--main-color-text: #330;
 }
@@ -10,6 +11,11 @@
 
 body {
 	color: var(--main-color-text);
+}
+
+select {
+	border: 1px black solid;
+	border-radius: 4px;
 }
 
 a {

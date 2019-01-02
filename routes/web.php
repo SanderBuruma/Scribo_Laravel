@@ -11,16 +11,6 @@
 |
 */
 
-// function isRole($roleId) {
-// 	//check if user has a specific role with ID $roleId
-// 	$isRole = false;
-// 	foreach(Auth::user()->roles as $role){
-// 		if ($role->id == $roleId) {$isRole = true; break;}
-// 	}
-// 	dd($roleId);
-// 	return $isRole;
-// }
-
 
 Route::group(['middleware' => ['web']], function(){
 
@@ -33,7 +23,6 @@ Route::group(['middleware' => ['web']], function(){
 	
 	Route::get('/', 'HomeController@index')->name('home');
 	Route::get('/home', 'HomeController@index')->name('home');
-	Route::get('/about', function(){ return view('pages.about'); })->name('about');
 
 	Route::get('user/{slug}', 'UserController@show')->name('user.show');
 });
