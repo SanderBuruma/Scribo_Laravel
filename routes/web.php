@@ -14,6 +14,8 @@
 
 Route::group(['middleware' => ['web']], function(){
 
+	Route::get('/verification/verify', "HomeController@index")->name('verification.verify');
+
 	Route::get('/ajax/text', "AjaxController@text");
 	Route::post('/ajax/chapter', "AjaxController@chapter");
 	Route::post('/ajax/verse', "AjaxController@verse");
@@ -32,9 +34,6 @@ Route::group(['middleware' => ['web','auth','role:!4']], function(){
 		Route::resource('/admin', 'AdminInterfaceController');
 		Route::get('/adminajax', 'AdminInterfaceController@indexAjax')->name('admin.index.ajax');
 		Route::resource('/text', 'TextController');
-	});
-	Route::group(['middleware' => ['role:1']], function(){
-		
 	});
 	Route::resource('/user', 'UserController')->except('show');
 	Route::resource('/race', 'RaceController');
