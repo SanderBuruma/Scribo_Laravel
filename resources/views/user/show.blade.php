@@ -31,12 +31,12 @@
 						<td>{{$user->last25_wpm}} WPM - {{max(0,round((1-($user->rank-1) / $userscount)*100,1))}}%</td>
 					</tr>
 					<tr title="The total average of characters typed per second multiplied by twelve">
-						<td>Total Average WPM: </td>
-						<td>{{round($user->races_len/$user->time_taken*12,2)}}</span></td>
+						<td>Total Average WPM: </td>	
+						<td>{{round($user->races_len/min($user->time_taken,1)*12,2)}}</span></td>
 					</tr>
 					<tr title="Sum of all mistakes divided by the sum length of all correctly typed races by this user.">
 						<td>Accuracy: </td>
-						<td>{{round((1-$user->mistakes/$user->races_len)*100,2)}}%</td>
+						<td>{{round((1-$user->mistakes/min($user->races_len,1))*100,2)}}%</td>
 					</tr>
 					<tr title="The total number of characters of their longest running marathon. Increase this by typing many races within a short time of each other.">
 						<td>Longest Marathon: </td>
