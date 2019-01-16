@@ -28,7 +28,7 @@
 					</tr>
 					<tr title="The average WPM over the last 25 races and the user's percentile ranking. 75% means the user's score is better than 75% of the other users.">
 						<td>Last 25 WPM: </td>
-						<td>{{$user->last25_wpm}} WPM - {{round((1-($user->rank-1) / $userscount)*100,1)}}%</td>
+						<td>{{$user->last25_wpm}} WPM - {{max(0,round((1-($user->rank-1) / $userscount)*100,1))}}%</td>
 					</tr>
 					<tr title="The total average of characters typed per second multiplied by twelve">
 						<td>Total Average WPM: </td>

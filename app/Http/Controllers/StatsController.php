@@ -35,6 +35,7 @@ class StatsController extends Controller
         GROUP BY user_id
         ORDER BY WPM DESC'
         );
+        
         $rank = 1;
         $texts = Text::all();
         $user25RacesCount = 0;
@@ -58,6 +59,8 @@ class StatsController extends Controller
                 $maxPerfectStreak = 0;
                 $last25_wpm_len = 0;
                 $last25_wpm_time = 0.00001;
+
+                //calculate max perfect streak and marathon
                 while ($currentRace = $userRaces->shift()) {
 
                     if ($lastRace) {
@@ -109,15 +112,15 @@ class StatsController extends Controller
 
                     }
                 }
+                $user->last25_wpm               = round($last25_wpm_len/$last25_wpm_time*12,1);
+                $user->longest_perfect_streak   = $maxPerfectStreak;
+                $user->longest_marathon         = $maxMarathonLen;
 
             } else {
 
-                $user->rank         = 1e9-1;
+                $user->rank         = 1e7-1;
 
             }
-            $user->last25_wpm               = round($last25_wpm_len/$last25_wpm_time*12,1);
-            $user->longest_perfect_streak   = $maxPerfectStreak;
-            $user->longest_marathon         = $maxMarathonLen;
             $user->races                    = $stat->races;
             $user->time_taken               = $stat->time_taken;
             $user->races_len                = $stat->races_len;
