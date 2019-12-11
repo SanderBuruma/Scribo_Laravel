@@ -17,7 +17,7 @@
 
           <tr style="font-size: 24px;">
             <td><i class="fas fa-keyboard"></i></td>
-            <td><a href="#" id="load-text-rnd" data-toggle="tooltip" title="fetch ANY random text from the database">> Random <</a></td>
+            <td><a href="#" id="load-text-rnd" data-toggle="tooltip" title="Fetch ANY random text from the database">> Random <</a></td>
           </tr>
 
           <tr style="font-size: 24px;">
