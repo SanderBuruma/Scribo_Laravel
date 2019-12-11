@@ -17,7 +17,7 @@
 			</div>
 			<div class="card-body">
                 <div position="relative" class="row">
-                    <img class="center mb-2" src="https://www.gravatar.com/avatar/{{ md5( strtolower( trim( "$user->email" ) ) ) }}?s=200" alt="">
+                    <img class="center mb-2" src="https://www.gravatar.com/avatar/{{ md5( strtolower( trim( "$user->email" ) ) ) }}?d=identicon" height="200" width="200" alt="" data-tooltip="tooltip" title="This picture can be changed on Gravatar.com using the same email that was used to register it.">
                 </div>
 				<table class="table" id="stats"><tbody>
 					<tr>

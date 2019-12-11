@@ -390,7 +390,7 @@ function fetchLeaderboard() {
         accuracy += `%`;
         insideStr += `
         <tr>
-          <td><img src="https://www.gravatar.com/avatar/${i.md5}?s=25" alt=""> <a href="/user/${i.name}" target="_blank" rel="noopener noreferrer">${i.name}</a></td>
+          <td><img height="25" width="25" src="https://www.gravatar.com/avatar/${i.md5}?d=identicon" alt=""> <a href="/user/${i.name}" target="_blank" rel="noopener noreferrer">${i.name}</a></td>
           <td>${WPM}</td>
           <td>${accuracy}</td>
         </tr>`;
