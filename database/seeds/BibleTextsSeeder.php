@@ -12,7 +12,7 @@ class BibleTextsSeeder extends Seeder
         $verseCount = 0;
         $verses = [];
         foreach ($file as $key => $line) {
-            if (preg_match('/(\d\d?):(\d\d?).{2,2}(.*)/',$line,$matches)) {
+            if (preg_match('/(\d\d?\d?):(\d\d?\d?).{2,2}(.*)/',$line,$matches)) {
                 $verses[] = [
                     'chapter' => $matches[1],
                     'verse' =>  $matches[2],
@@ -20,7 +20,7 @@ class BibleTextsSeeder extends Seeder
                     'text' => $matches[3],
                     'length' => strlen($matches[3]),
                 ];
-                $verseCount++; 
+                $verseCount++;
                 if ($verseCount%1e3==0) {
                     $blocks[] = $verses;
                     $verses = [];
