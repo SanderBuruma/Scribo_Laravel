@@ -20,5 +20,5 @@ clone, run composer update, php artisan migrate -v --seed
 ## Plugins
 
 - Bootstrap
-- Jquer
+- Jquery
 - Select2
