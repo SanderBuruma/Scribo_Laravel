@@ -3,7 +3,7 @@
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-	
+
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item dropdown">
@@ -15,7 +15,7 @@
 					<a class="dropdown-item" href="{{ route('login')}}"><i class="fas fa-sign-in-alt"></i> Log In!</a>
 					<a class="dropdown-item" href="{{ route('register') }}"><i class="fas fa-user-plus"></i> Register!</a>
 					@else
-					
+
 					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 						@csrf
 					</form>
@@ -29,7 +29,8 @@
 						@if(Auth::user()->hasRole(Auth::user(),'3'))
 							<a class="dropdown-item" href="{{ route('admin.index') }}"><i class="fas fa-toolbox"></i> Admin Interface</a>
 						@endif
-						<a class="dropdown-item" href="{{ route('user.index') }}"><i class="fas fa-user-edit"></i> User Interface</a>
+                        <a class="dropdown-item" href="{{ route('user.index') }}"><i class="fas fa-user-edit"></i> User Interface</a>
+                        <a class="dropdown-item" href="/user/{{ Auth::user()->name }}" . $user target="_blank" rel="noopener noreferrer"><i class="fas fa-user"></i> My Scores</a>
 					@endguest
 				</div>
 			</li>
