@@ -72,10 +72,10 @@
     </div>
     <div>
       <table class="table">
-        <thead title="">
-          <th title="Length of the typed text">Length</th>
-          <th title="WPM, characters per minute divided by five">WPM</th>
-          <th title="Mistakes divided by Length of text">Accuracy</th>
+        <thead>
+          <th data-toggle="tooltip" title="Length of the typed text">Length</th>
+          <th data-toggle="tooltip" title="WPM, characters per minute divided by five">WPM</th>
+          <th data-toggle="tooltip" title="Mistakes divided by Length of text">Accuracy</th>
         </thead>
         <tbody id="completed-races-body">
           {{-- Javascript interacts here --}}
