@@ -17,12 +17,12 @@
 
           <tr style="font-size: 24px;">
             <td><i class="fas fa-keyboard"></i></td>
-            <td><a href="#" id="load-text-rnd" title="fetch ANY random text from the database">> Random <</a></td>
+            <td><a href="#" id="load-text-rnd" data-toggle="tooltip" title="fetch ANY random text from the database">> Random <</a></td>
           </tr>
 
           <tr style="font-size: 24px;">
             <td><i class="fas fa-search" style="font-size: 24px;"></i></td>
-            <td><a href="#" id="load-text-bible" title="Fetch a specific text from the Bible">> Biblical <</a></td>
+            <td><a href="#" id="load-text-bible" data-toggle="tooltip" title="Fetch a specific text from the Bible">> Biblical <</a></td>
             <td>
               <select id="load-text-bible-book" value="2">
               @foreach($subcategories as $subcategory)
@@ -36,7 +36,7 @@
 
           <tr style="font-size: 24px;">
             <td><i class="fas fa-search" style="font-size: 24px;"></i></td>
-            <td><a href="#" id="load-text-saint" title="Fetch a specific text from the Bible">> Saint <</a></td>
+            <td><a href="#" id="load-text-saint" data-toggle="tooltip" title="Fetch a specific text from a saint book">> Saint <</a></td>
             <td>
               <select id="load-text-saint-book" value="1">
               </select>
@@ -49,7 +49,7 @@
       </table>
     </div>
   </div>
-   
+
   <div class="col-md-8 offset-md-2 card card mb-sm-2" id="scribo-box">
     <div class="card-header">
       <h4 id="text-header">
@@ -60,7 +60,7 @@
       <div id="text-to-type-display" class="inactive">
         <span id="text-correct"></span><span id="text-next-char"></span><span id="text-wrong"></span><span id="text-to-type"></span>
       </div>
-      <input type="text" id="text-to-type-input" class="form-control" title="Empty me to reset the timer and mistakes counter." placeholder="Type here...">
+      <input type="text" id="text-to-type-input" class="form-control" title="Empty me to reset the timer and mistakes counter. (Copy pasting into this box is not allowed...)" placeholder="Type here...">
     </h2></div>
   </div>
 
@@ -92,10 +92,10 @@
     </div>
     <div>
       <table class="table">
-        <thead title="To be recorded in the leaderboard, the user must have completed at least 25 races">
+        <thead data-toggle="tooltip" title="To be recorded in the leaderboard the user must have completed at least 25 races">
           <th>Name</th>
-          <th title="Words per minute - characters typed per second times twelve">WPM</th>
-          <th title="1 minus number of mistakes divided by total characters correctly typed">Accuracy</th>
+          <th data-toggle="tooltip" title="Words per minute - characters typed per second times twelve">WPM</th>
+          <th data-toggle="tooltip" title="1 minus number of mistakes divided by total characters correctly typed">Accuracy</th>
         </thead>
         <tbody id="leaderboard-body">
           {{-- Javascript interacts here --}}
@@ -116,7 +116,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <img src="/img/happynun.png"><br> 
+        <img src="/img/happynun.png"><br>
         Your scores and progress will not be saved. Register or log in so sister Gaudea can record your scores and calculate your statistics! When she isn't praying the rosary she's recording your scores and your WPM but she can't do that if you won't give her your name and email!
       </div>
       <div class="modal-footer">
@@ -158,25 +158,25 @@ $(document).ready(function(){
 
   $('#load-text-rnd')[0].onclick = function(){
     fetchText();
-  }	
+  }
   $('#load-text-bible')[0].onclick = function(){
     let query = $('#load-text-bible-book')[0].value + " " + $('#load-text-bible-chapter')[0].value + " " + $('#load-text-bible-verse')[0].value;
     fetchText("?specific="+query);
-  }	
+  }
   $('#load-text-saint')[0].onclick = function(){
     let query = $('#load-text-saint-book')[0].value + " " + $('#load-text-saint-chapter')[0].value + " " + $('#load-text-saint-verse')[0].value;
     fetchText("?specific="+query);
-  }	
+  }
 
   $('#load-text-bible-book')[0].onchange = function(){
     bibleBookChange()
-  }	
+  }
   $('#load-text-saint-book')[0].onchange = function(){
     refreshSaintsChapters()
-  }	
+  }
   $('#load-text-saint-chapter')[0].onchange = function(){
     refreshSaintsVerses()
-  }	
+  }
 
   function bibleBookChange() {
     $.ajax({
@@ -199,7 +199,7 @@ $(document).ready(function(){
 
   $('#load-text-bible-chapter')[0].onchange = function(){
     bibleChapterChange();
-  }	
+  }
 
   function bibleChapterChange () {
     $.ajax({
@@ -219,7 +219,7 @@ $(document).ready(function(){
       }
     });
   }
-  
+
 	$('#text-to-type-input')[0].addEventListener('keydown', txtInputChange);
 	$('#text-to-type-input')[0].addEventListener('keyup', txtInputChange);
   function txtInputChange(e) {
@@ -229,7 +229,7 @@ $(document).ready(function(){
       $('#text-to-type-display')[0].classList.remove('inactive');
       startTime = +new Date();
       typingMistakes = 0;
-    } 
+    }
     if (e.target.value.length > inputLen+2) {
       alert('no copy pasting, please...');
       e.target.value = '';
@@ -245,9 +245,9 @@ $(document).ready(function(){
 function refreshText(text) {
 
   if (text.indexOf(textInput.value) === 0) { //input congruent with text
-    
+
     typingCorrect = true;
-    
+
     textInput.disabled = false;
     textInput.classList.remove('error')
     textCorrect.innerHTML = textInput.value;
@@ -376,7 +376,6 @@ function rollNextText () {
   refreshText(currentText.text);
   raceStarted = false;
   $('#text-to-type-display')[0].classList.add('inactive');
-  //nextText is updated
   fetchNextText();
 
 }
