@@ -368,7 +368,6 @@ function fetchNextText () {
 }
 
 function rollNextText () {
-  //nextText becomes currentText and is loaded
   currentText = nextText;
   fetchStatus = false;
   $('#text-to-type-input')[0].value = null;
@@ -377,7 +376,6 @@ function rollNextText () {
   raceStarted = false;
   $('#text-to-type-display')[0].classList.add('inactive');
   fetchNextText();
-
 }
 
 function fetchLeaderboard() {
@@ -392,7 +390,7 @@ function fetchLeaderboard() {
         accuracy += `%`;
         insideStr += `
         <tr>
-          <td><a href="/user/${i.name}" target="_blank" rel="noopener noreferrer">${i.name}</a></td>
+          <td><img src="https://www.gravatar.com/avatar/${i.md5}?s=25" alt=""> <a href="/user/${i.name}" target="_blank" rel="noopener noreferrer">${i.name}</a></td>
           <td>${WPM}</td>
           <td>${accuracy}</td>
         </tr>`;

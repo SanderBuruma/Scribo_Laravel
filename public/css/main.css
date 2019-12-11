@@ -1,50 +1,56 @@
 :root {
-	--main-color-light: #ffd;
-	--main-color-med: #dd8;
-	--main-color-dark: #662;
-	--main-color-text: #330;
+    --main-color-light: #ffd;
+    --main-color-med: #dd8;
+    --main-color-dark: #662;
+    --main-color-text: #330;
 }
 
 *:focus {
-	outline: none !important;
+    outline: none !important;
 }
 
 body {
-	color: var(--main-color-text);
+    color: var(--main-color-text);
 }
 
 select {
-	border: 1px black solid;
-	border-radius: 4px;
+    border: 1px black solid;
+    border-radius: 4px;
 }
 
 a {
-	opacity: 0.8;
-	color: var(--main-color-dark) !important;
+    opacity: 0.8;
+    color: var(--main-color-dark) !important;
 }
 a:hover {
-	opacity: 1;
-	text-decoration: underline !important;
+    opacity: 1;
+    text-decoration: underline !important;
 }
 
 .card-header,
 .navbar {
-	background-color: var(--main-color-light) !important;
+    background-color: var(--main-color-light) !important;
 }
 
 .role-list-item {
-	background-color: var(--main-color-dark);
-	color: white;
-	padding: 4px;
-	font-size: 12px;
-	border-radius: 8px;
-	font-weight: bold;
+    background-color: var(--main-color-dark);
+    color: white;
+    padding: 4px;
+    font-size: 12px;
+    border-radius: 8px;
+    font-weight: bold;
 }
-.navbar-nav.mr-auto{
-  margin-left: auto !important;
-  margin-right: 0 !important;
+.navbar-nav.mr-auto {
+    margin-left: auto !important;
+    margin-right: 0 !important;
 }
 .row {
-	margin-right: 0;
-	margin-left: 0;
+    margin-right: 0;
+    margin-left: 0;
+}
+.center {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
 }

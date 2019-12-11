@@ -12,11 +12,13 @@
 		<div class="card">
 			<div class="card-header">
 				<table><tbody>
-					<td>{{$user->name}}</td>
-					<td title=""></td>
+					<td class="text-center h3">{{$user->name}}</td>
 				</tbody></table>
 			</div>
 			<div class="card-body">
+                <div position="relative" class="row">
+                    <img class="center mb-2" src="https://www.gravatar.com/avatar/{{ md5( strtolower( trim( "$user->email" ) ) ) }}?s=200" alt="">
+                </div>
 				<table class="table" id="stats"><tbody>
 					<tr>
 						<td data-toggle="tooltip" title="Date of account creation">Member Since: </td>
