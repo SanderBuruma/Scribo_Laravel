@@ -8,7 +8,7 @@
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fas fa-user"></i>@guest -Guest- @else {{ Auth::user()->name }} @endguest
+					@guest<i class="fas fa-user"></i> -Guest- @else <img src="https://www.gravatar.com/avatar/{{ md5( strtolower( trim( Auth::user()->email ) ) ) }}?d=identicon" height="32" width="32" alt="" data-tooltip="tooltip" title="This picture can be changed on Gravatar.com using the same email that was used to register it."> {{ Auth::user()->name }} @endguest
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					@guest
@@ -29,8 +29,8 @@
 						@if(Auth::user()->hasRole(Auth::user(),'3'))
 							<a class="dropdown-item" href="{{ route('admin.index') }}"><i class="fas fa-toolbox"></i> Admin Interface</a>
 						@endif
-                        <a class="dropdown-item" href="{{ route('user.index') }}"><i class="fas fa-user-edit"></i> User Interface</a>
-                        <a class="dropdown-item" href="/user/{{ Auth::user()->name }}" . $user target="_blank" rel="noopener noreferrer"><i class="fas fa-user"></i> My Scores</a>
+						<a class="dropdown-item" href="{{ route('user.index') }}"><i class="fas fa-user-edit"></i> User Interface</a>
+						<a class="dropdown-item" href="/user/{{ Auth::user()->name }}" . $user target="_blank" rel="noopener noreferrer"><i class="fas fa-user"></i> My Scores</a>
 					@endguest
 				</div>
 			</li>
