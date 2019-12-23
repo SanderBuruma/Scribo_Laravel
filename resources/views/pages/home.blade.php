@@ -11,17 +11,17 @@
 @section('content')
 <div class="row" style="margin-right: 0;">
   <div class="col-md-8 offset-md-2 card mb-sm-2">
-    <div class="card-body">
+    <div class="card-body" id="selection-table">
       <table>
         <tbody>
 
-          <tr style="font-size: 24px;">
+          <tr>
             <td><i class="fas fa-keyboard"></i></td>
             <td><a href="#" id="load-text-rnd" data-toggle="tooltip" title="Fetch ANY random text from the database">> Random <</a></td>
           </tr>
 
-          <tr style="font-size: 24px;">
-            <td><i class="fas fa-search" style="font-size: 24px;"></i></td>
+          <tr>
+            <td><i class="fas fa-search"></i></td>
             <td><a href="#" id="load-text-bible" data-toggle="tooltip" title="Fetch a specific text from the Bible">> Biblical <</a></td>
             <td>
               <select id="load-text-bible-book" value="2">
@@ -34,8 +34,8 @@
             </td>
           </tr>
 
-          <tr style="font-size: 24px;">
-            <td><i class="fas fa-search" style="font-size: 24px;"></i></td>
+          <tr>
+            <td><i class="fas fa-search"></i></td>
             <td><a href="#" id="load-text-saint" data-toggle="tooltip" title="Fetch a specific text from a saint book">> Saint <</a></td>
             <td>
               <select id="load-text-saint-book" value="1">
@@ -56,12 +56,12 @@
         {{-- javascript inputs header info here --}}
       </h4>
     </div>
-    <div class="card-body"><h2>
+    <div class="card-body"><h4>
       <div id="text-to-type-display" class="inactive">
         <span id="text-correct"></span><span id="text-next-char"></span><span id="text-wrong"></span><span id="text-to-type"></span>
       </div>
       <input type="text" id="text-to-type-input" class="form-control" title="Empty me to reset the timer and mistakes counter. (Copy pasting into this box is not allowed...)" placeholder="Type here...">
-    </h2></div>
+    </h4></div>
   </div>
 
   <div class="col-md-8 offset-md-2 card mb-sm-2" id="completed-races-card">

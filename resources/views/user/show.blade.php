@@ -16,9 +16,9 @@
 				</tbody></table>
 			</div>
 			<div class="card-body">
-                <div position="relative" class="row">
-                    <img class="center mb-2" src="https://www.gravatar.com/avatar/{{ md5( strtolower( trim( "$user->email" ) ) ) }}?d=identicon" height="200" width="200" alt="" data-tooltip="tooltip" title="This picture can be changed on Gravatar.com using the same email that was used to register it.">
-                </div>
+				<div position="relative" class="row">
+						<img class="center mb-2" src="https://www.gravatar.com/avatar/{{ md5( strtolower( trim( "$user->email" ) ) ) }}?d=identicon" height="200" width="200" alt="" data-tooltip="tooltip" title="This picture can be changed on Gravatar.com using the same email that was used to register it.">
+				</div>
 				<table class="table" id="stats"><tbody>
 					<tr>
 						<td data-toggle="tooltip" title="Date of account creation">Member Since: </td>
@@ -27,11 +27,11 @@
 					<tr>
 						<td data-toggle="tooltip" title="Your total number of this user's completed races">Races Completed: </td>
 						<td>{{number_format($user->races)}}</td>
-                    </tr>
-                    <tr>
-                        <td data-toggle="tooltip" title="Shows your average WPM over the last 25 races!">Last 25 WPM: </td>
-                        <td>{{$user->last25_wpm}} WPM - {{max(0,round((1-($user->rank-1) / $userscount)*100,1))}}%</td>
-                    </tr>
+					</tr>
+					<tr>
+							<td data-toggle="tooltip" title="Shows your average WPM over the last 25 races!">Last 25 WPM: </td>
+							<td>{{$user->last25_wpm}} WPM - {{max(0,round((1-($user->rank-1) / $userscount)*100,1))}}%</td>
+					</tr>
 					<tr>
 						<td data-toggle="tooltip" title="The total average of characters typed per second multiplied by twelve">Total Average WPM: </td>
 						<td>{{round($user->races_len/max($user->time_taken,1)*12,2)}}</span></td>
